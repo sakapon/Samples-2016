@@ -20,10 +20,10 @@ namespace RandomWalkConsole
             Z = z;
         }
 
+        public static Int32Vector3 operator +(Int32Vector3 v) => new Int32Vector3(v.X, v.Y, v.Z);
+        public static Int32Vector3 operator -(Int32Vector3 v) => new Int32Vector3(-v.X, -v.Y, -v.Z);
         public static Int32Vector3 operator +(Int32Vector3 v1, Int32Vector3 v2) => new Int32Vector3(v1.X + v2.X, v1.Y + v2.Y, v1.Z + v2.Z);
         public static Int32Vector3 operator -(Int32Vector3 v1, Int32Vector3 v2) => new Int32Vector3(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
-        public static Int32Vector3 operator +(Int32Vector3 v1) => v1;
-        public static Int32Vector3 operator -(Int32Vector3 v1) => new Int32Vector3(-v1.X, -v1.Y, -v1.Z);
 
         public static bool operator ==(Int32Vector3 v1, Int32Vector3 v2) => v1.X == v2.X && v1.Y == v2.Y && v1.Z == v2.Z;
         public static bool operator !=(Int32Vector3 v1, Int32Vector3 v2) => !(v1 == v2);
