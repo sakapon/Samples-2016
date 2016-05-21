@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Devices.Sensors;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +27,25 @@ namespace SensorUwp
         public MainPage()
         {
             this.InitializeComponent();
+
+            Loaded += MainPage_Loaded;
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs _e)
+        {
+            var lightSensor = LightSensor.GetDefault();
+            lightSensor.ReportInterval = 500;
+            Action<LightSensorReading> notifyLight =
+                r => LightText.Text = $"Light: {r.IlluminanceInLux} lx";
+            notifyLight(lightSensor.GetCurrentReading());
+            lightSensor.ReadingChanged += async (o, e) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => notifyLight(e.Reading));
+
+            var compass = Compass.GetDefault();
+            compass.ReportInterval = 500;
+            Action<CompassReading> notifyCompass =
+                r => CompassText.Text = $"Compass: {r.HeadingMagneticNorth:N3} °";
+            notifyCompass(compass.GetCurrentReading());
+            compass.ReadingChanged += async (o, e) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => notifyCompass(e.Reading));
         }
     }
 }
