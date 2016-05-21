@@ -48,7 +48,7 @@ namespace SensorUwp
             compass.ReadingChanged += (o, e) => RunOnUIAsync(() => notifyCompass(e.Reading));
         }
 
-        void RunOnUIAsync(DispatchedHandler action) =>
-            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, action);
+        async void RunOnUIAsync(DispatchedHandler action) =>
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, action);
     }
 }
