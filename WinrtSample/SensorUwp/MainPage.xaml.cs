@@ -38,14 +38,17 @@ namespace SensorUwp
             Action<LightSensorReading> notifyLight =
                 r => LightText.Text = $"Light: {r.IlluminanceInLux} lx";
             notifyLight(lightSensor.GetCurrentReading());
-            lightSensor.ReadingChanged += async (o, e) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => notifyLight(e.Reading));
+            lightSensor.ReadingChanged += (o, e) => RunOnUIAsync(() => notifyLight(e.Reading));
 
             var compass = Compass.GetDefault();
             compass.ReportInterval = 500;
             Action<CompassReading> notifyCompass =
                 r => CompassText.Text = $"Compass: {r.HeadingMagneticNorth:N3} °";
             notifyCompass(compass.GetCurrentReading());
-            compass.ReadingChanged += async (o, e) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => notifyCompass(e.Reading));
+            compass.ReadingChanged += (o, e) => RunOnUIAsync(() => notifyCompass(e.Reading));
         }
+
+        void RunOnUIAsync(DispatchedHandler action) =>
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal, action);
     }
 }
