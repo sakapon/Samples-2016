@@ -26,6 +26,7 @@ namespace ToastConsole
             var @abstract = "This is the abstract.";
             var detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
+            // My favorites are Alarm4, Alarm10, Call2 and Call6.
             for (int i = 1; i <= 10; i++)
             {
                 ShowToast($"Alarm {i}", @abstract, detail, GetAudioSourceForAlarm(i));
