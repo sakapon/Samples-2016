@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
@@ -12,6 +13,8 @@ namespace ToastConsole
     {
         static void Main(string[] args)
         {
+            // ToastTemplateType enumeration
+            // https://msdn.microsoft.com/en-us/library/windows/apps/windows.ui.notifications.toasttemplatetype
             // Toast schema
             // https://msdn.microsoft.com/en-us/library/windows/apps/br230849
 
@@ -20,11 +23,20 @@ namespace ToastConsole
             //var text1 = (XmlElement)xml.GetElementsByTagName("text")[0];
             //text1.InnerText = "The Title";
 
-            var title = "The Title";
             var @abstract = "This is the abstract.";
             var detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
-            ShowToast(title, @abstract, detail, GetAudioSourceForAlarm(3));
+            for (int i = 1; i <= 10; i++)
+            {
+                ShowToast($"Alarm {i}", @abstract, detail, GetAudioSourceForAlarm(i));
+                Thread.Sleep(7000);
+            }
+
+            for (int i = 1; i <= 10; i++)
+            {
+                ShowToast($"Call {i}", @abstract, detail, GetAudioSourceForCall(i));
+                Thread.Sleep(7000);
+            }
         }
 
         static void ShowToast(string title, string @abstract, string detail, string audioSource)
