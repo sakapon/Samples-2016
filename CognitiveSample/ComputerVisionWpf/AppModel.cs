@@ -10,11 +10,12 @@ namespace ComputerVisionWpf
 {
     public class AppModel
     {
-        static readonly string SubscriptionKey = ConfigurationManager.AppSettings["SubscriptionKey"];
-
+        static string SubscriptionKey { get; } = ConfigurationManager.AppSettings["SubscriptionKey"];
         VisionServiceClient Client { get; } = new VisionServiceClient(SubscriptionKey);
 
-        public ReactiveProperty<string> ImageUrl { get; } = new ReactiveProperty<string>("");
+        const string DefaultImageUrl= "https://model.foto.ne.jp/free/img/images_big/m010078.jpg";
+
+        public ReactiveProperty<string> ImageUrl { get; } = new ReactiveProperty<string>(DefaultImageUrl);
         public ReactiveProperty<AnalysisResult> Result { get; } = new ReactiveProperty<AnalysisResult>();
 
         public async void Analyze()
