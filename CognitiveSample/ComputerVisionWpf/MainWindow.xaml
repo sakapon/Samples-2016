@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComputerVisionWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Computer Vision" Height="600" Width="900">
+    <Window.DataContext>
+        <local:AppModel/>
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding ImageUrl.Value}" Height="24" VerticalContentAlignment="Center"/>
+            <Button Content="Analyze" Width="90" Height="24" Grid.Column="1"/>
+        </Grid>
+        <Image Source="{Binding ImageUrl.Value}" Margin="12" Grid.Row="1"/>
     </Grid>
 </Window>
