@@ -1,0 +1,85 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComputerVisionWpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        x:Class="ComputerVisionWpf.MainWindow"
+        mc:Ignorable="d"
+        Title="Computer Vision" Height="600" Width="900" FontSize="16">
+    <Window.Resources>
+        <DataTemplate x:Key="FaceDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Gender}" Margin="0,0,6,0"/>
+                <TextBlock Text="{Binding Age}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="TextDataTemplate">
+            <TextBlock Text="{Binding Text}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="NameDataTemplate">
+            <TextBlock Text="{Binding Name}" Margin="0,0,6,0"/>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="HorizontalPanelTemplate">
+            <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+        <Style x:Key="LabelTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="8,0"/>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <local:AppModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto" MinHeight="150"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="140"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding ImageUrl.Value, UpdateSourceTrigger=PropertyChanged}" Height="30" VerticalContentAlignment="Center"/>
+            <Button Content="Analyze" Width="100" Height="30" Grid.Column="1" IsDefault="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Analyze"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+        <Grid Margin="12,6" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding ImageUrl.Value}"/>
+            <TextBox Text="{Binding OcrLines.Value, Mode=OneWay}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="12,0" SpellCheck.IsEnabled="True" Grid.Column="1"/>
+        </Grid>
+        <Grid DataContext="{Binding AnalysisResult.Value}" Margin="12" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Faces:" Style="{DynamicResource LabelTextStyle}"/>
+            <TextBlock Text="Captions:" Style="{DynamicResource LabelTextStyle}" Grid.Row="1"/>
+            <TextBlock Text="Categories:" Style="{DynamicResource LabelTextStyle}" Grid.Row="2"/>
+            <TextBlock Text="Tags:" Style="{DynamicResource LabelTextStyle}" Grid.Row="3"/>
+            <ItemsControl ItemsSource="{Binding Faces}" ItemTemplate="{DynamicResource FaceDataTemplate}" Focusable="False" Grid.Column="1"/>
+            <ItemsControl ItemsSource="{Binding Description.Captions}" ItemTemplate="{DynamicResource TextDataTemplate}" Focusable="False" Grid.Column="1" Grid.Row="1"/>
+            <ItemsControl ItemsSource="{Binding Categories}" ItemTemplate="{DynamicResource NameDataTemplate}" ItemsPanel="{DynamicResource HorizontalPanelTemplate}" Focusable="False" Grid.Column="1" Grid.Row="2"/>
+            <ItemsControl ItemsSource="{Binding Tags}" ItemTemplate="{DynamicResource NameDataTemplate}" ItemsPanel="{DynamicResource HorizontalPanelTemplate}" Focusable="False" Grid.Column="1" Grid.Row="3"/>
+        </Grid>
+    </Grid>
+</Window>
