@@ -9,11 +9,21 @@
         mc:Ignorable="d"
         Title="Computer Vision" Height="600" Width="900">
     <Window.Resources>
-        <DataTemplate x:Key="CaptionDataTemplate">
-            <Grid>
-                <TextBlock Text="{Binding Text}"/>
-            </Grid>
+        <DataTemplate x:Key="FaceDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Gender}" Margin="0,0,6,0"/>
+                <TextBlock Text="{Binding Age}"/>
+            </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="TextDataTemplate">
+            <TextBlock Text="{Binding Text}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="NameDataTemplate">
+            <TextBlock Text="{Binding Name}" Margin="0,0,6,0"/>
+        </DataTemplate>
+        <ItemsPanelTemplate x:Key="HorizontalPanelTemplate">
+            <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
     </Window.Resources>
     <Window.DataContext>
         <local:AppModel/>
@@ -39,8 +49,11 @@
             </Button>
         </Grid>
         <Image Source="{Binding ImageUrl.Value}" Margin="12" Grid.Row="1"/>
-        <Grid DataContext="{Binding Result.Value}" Margin="12" Grid.Row="2">
-            <ItemsControl ItemsSource="{Binding Description.Captions}" ItemTemplate="{DynamicResource CaptionDataTemplate}"/>
-        </Grid>
+        <StackPanel DataContext="{Binding Result.Value}" Margin="12" Grid.Row="2">
+            <ItemsControl ItemsSource="{Binding Faces}" ItemTemplate="{DynamicResource FaceDataTemplate}"/>
+            <ItemsControl ItemsSource="{Binding Description.Captions}" ItemTemplate="{DynamicResource TextDataTemplate}"/>
+            <ItemsControl ItemsSource="{Binding Categories}" ItemTemplate="{DynamicResource NameDataTemplate}" ItemsPanel="{DynamicResource HorizontalPanelTemplate}"/>
+            <ItemsControl ItemsSource="{Binding Tags}" ItemTemplate="{DynamicResource NameDataTemplate}" ItemsPanel="{DynamicResource HorizontalPanelTemplate}"/>
+        </StackPanel>
     </Grid>
 </Window>
