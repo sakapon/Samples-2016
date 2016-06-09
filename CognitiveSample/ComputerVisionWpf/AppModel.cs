@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
 using Microsoft.ProjectOxford.Vision;
 using Microsoft.ProjectOxford.Vision.Contract;
 using Reactive.Bindings;
@@ -19,6 +20,23 @@ namespace ComputerVisionWpf
         public ReactiveProperty<string> ImageUrl { get; } = new ReactiveProperty<string>(DefaultImageUrl);
         public ReactiveProperty<AnalysisResult> AnalysisResult { get; } = new ReactiveProperty<AnalysisResult>();
         public ReactiveProperty<OcrResults> OcrResults { get; } = new ReactiveProperty<OcrResults>();
+        public ReadOnlyReactiveProperty<string[]> OcrLines { get; }
+
+        public AppModel()
+        {
+            OcrLines = OcrResults
+                .Select(ocr => ocr == null ? new string[0] : ToLines(ocr))
+                .ToReadOnlyReactiveProperty();
+        }
+
+        static string[] ToLines(OcrResults ocr) =>
+            ocr.Regions
+                .SelectMany(r => r.Lines)
+                .Select(ToText)
+                .ToArray();
+
+        static string ToText(Line line) =>
+            string.Join(" ", line.Words.Select(w => w.Text));
 
         public async void Analyze()
         {
