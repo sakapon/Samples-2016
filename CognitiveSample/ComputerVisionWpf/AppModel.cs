@@ -22,6 +22,7 @@ namespace ComputerVisionWpf
         {
             if (string.IsNullOrWhiteSpace(ImageUrl.Value)) return;
 
+            Result.Value = null;
             Result.Value = await Client.AnalyzeImageAsync(ImageUrl.Value, (VisualFeature[])Enum.GetValues(typeof(VisualFeature)));
         }
     }
