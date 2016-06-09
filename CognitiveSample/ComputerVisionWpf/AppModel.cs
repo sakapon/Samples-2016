@@ -12,10 +12,13 @@ namespace ComputerVisionWpf
 {
     public class AppModel
     {
+        // Microsoft Cognitive Services - Computer Vision API
+        // https://www.microsoft.com/cognitive-services/en-us/computer-vision-api
+
         static string SubscriptionKey { get; } = ConfigurationManager.AppSettings["SubscriptionKey"];
         VisionServiceClient Client { get; } = new VisionServiceClient(SubscriptionKey);
 
-        const string DefaultImageUrl = "https://model.foto.ne.jp/free/img/images_big/m010078.jpg";
+        const string DefaultImageUrl = "https://greenfundingimg.s3.amazonaws.com/uploads/project/main_visual_image/853/top460340_02.jpg";
 
         public ReactiveProperty<string> ImageUrl { get; } = new ReactiveProperty<string>(DefaultImageUrl);
         public ReactiveProperty<AnalysisResult> AnalysisResult { get; } = new ReactiveProperty<AnalysisResult>();
