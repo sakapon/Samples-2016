@@ -44,8 +44,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="140"/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding ImageUrl.Value}" Height="30" VerticalContentAlignment="Center"/>
-            <Button Content="Analyze" Width="100" Height="30" Grid.Column="1">
+            <TextBox Text="{Binding ImageUrl.Value, UpdateSourceTrigger=PropertyChanged}" Height="30" VerticalContentAlignment="Center"/>
+            <Button Content="Analyze" Width="100" Height="30" Grid.Column="1" IsDefault="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="Analyze"/>
