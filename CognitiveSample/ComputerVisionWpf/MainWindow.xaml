@@ -54,7 +54,7 @@
             </Button>
         </Grid>
         <Image Source="{Binding ImageUrl.Value}" Margin="12,6" Grid.Row="1"/>
-        <Grid DataContext="{Binding Result.Value}" Margin="12" Grid.Row="2">
+        <Grid DataContext="{Binding AnalysisResult.Value}" Margin="12" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
