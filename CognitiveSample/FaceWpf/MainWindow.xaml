@@ -6,10 +6,32 @@
         xmlns:local="clr-namespace:FaceWpf"
         mc:Ignorable="d"
         Title="Face" Height="480" Width="720" AllowDrop="True">
+    <Window.Resources>
+        <ItemsPanelTemplate x:Key="FacesPanelTemplate">
+            <Canvas/>
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="FaceDataTemplate">
+            <Grid>
+                <Rectangle Stroke="#FFEE6633" StrokeThickness="4" Width="{Binding FaceRectangle.Width}" Height="{Binding FaceRectangle.Height}" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform X="{Binding FaceRectangle.Left}" Y="{Binding FaceRectangle.Top}"/>
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
     <Window.DataContext>
         <local:AppModel/>
     </Window.DataContext>
-    <Grid>
-        <Image Source="{Binding ImagePath.Value}"/>
-    </Grid>
+    <Viewbox>
+        <Grid>
+            <Image Source="{Binding ImagePath.Value}"/>
+            <ItemsControl ItemsSource="{Binding DetectionResult.Value}" ItemsPanel="{DynamicResource FacesPanelTemplate}" ItemTemplate="{DynamicResource FaceDataTemplate}"/>
+        </Grid>
+    </Viewbox>
 </Window>

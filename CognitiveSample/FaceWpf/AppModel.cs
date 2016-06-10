@@ -30,6 +30,8 @@ namespace FaceWpf
         {
             if (string.IsNullOrWhiteSpace(ImagePath.Value)) return;
 
+            DetectionResult.Value = null;
+
             try
             {
                 using (var stream = File.OpenRead(ImagePath.Value))
