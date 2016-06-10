@@ -29,11 +29,20 @@ namespace FaceWpf
 
         void MainWindow_Drop(object sender, DragEventArgs e)
         {
-            var filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (filePaths == null || filePaths.Length < 1) return;
+            var imageUrl = GetImageUrl(e.Data);
+            if (string.IsNullOrWhiteSpace(imageUrl)) return;
 
             var appModel = (AppModel)DataContext;
-            appModel.ImagePath.Value = filePaths[0];
+            appModel.ImagePath.Value = imageUrl;
+        }
+
+        static string GetImageUrl(IDataObject data)
+        {
+            var fileDrops = (string[])data.GetData(DataFormats.FileDrop);
+            if (fileDrops?.Length >= 1) return fileDrops[0];
+
+            var text = (string)data.GetData(DataFormats.UnicodeText);
+            return text;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace FaceWpf
             // JPEG ファイルは DPI が異なる場合があります (既定では 96 だが、72 などもある)。
             // Image コントロールに直接読み込ませると、DPI によりサイズが変化してしまいます。
             BitmapImage = ImagePath
-                .Select(p=> new BitmapImage(new Uri(p)))
+                .Select(p => new BitmapImage(new Uri(p)))
                 .ToReadOnlyReactiveProperty();
             ImagePath.Subscribe(_ => DetectAsync());
         }
@@ -42,9 +42,16 @@ namespace FaceWpf
 
             try
             {
-                using (var stream = File.OpenRead(ImagePath.Value))
+                if (ImagePath.Value.StartsWith("http://") || ImagePath.Value.StartsWith("https://"))
                 {
-                    DetectionResult.Value = await Client.DetectAsync(stream, returnFaceAttributes: (FaceAttributeType[])Enum.GetValues(typeof(FaceAttributeType)));
+                    DetectionResult.Value = await Client.DetectAsync(ImagePath.Value, returnFaceAttributes: (FaceAttributeType[])Enum.GetValues(typeof(FaceAttributeType)));
+                }
+                else
+                {
+                    using (var stream = File.OpenRead(ImagePath.Value))
+                    {
+                        DetectionResult.Value = await Client.DetectAsync(stream, returnFaceAttributes: (FaceAttributeType[])Enum.GetValues(typeof(FaceAttributeType)));
+                    }
                 }
             }
             catch (Exception ex)
