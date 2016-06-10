@@ -48,7 +48,7 @@
             <Button Content="Analyze" Width="100" Height="30" Grid.Column="1" IsDefault="True">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Analyze"/>
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="AnalyzeAsync"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
