@@ -40,7 +40,7 @@ namespace ComputerVisionWpf
         static string ToText(Line line) =>
             string.Join(" ", line.Words.Select(w => w.Text));
 
-        public async void Analyze()
+        public async void AnalyzeAsync()
         {
             if (string.IsNullOrWhiteSpace(ImageUrl.Value)) return;
 
