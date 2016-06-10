@@ -30,7 +30,7 @@
     </Window.DataContext>
     <Viewbox>
         <Grid>
-            <Image Source="{Binding ImagePath.Value}"/>
+            <Image Source="{Binding}" Width="{Binding PixelWidth}" Height="{Binding PixelHeight}" DataContext="{Binding BitmapImage.Value}"/>
             <ItemsControl ItemsSource="{Binding DetectionResult.Value}" ItemsPanel="{DynamicResource FacesPanelTemplate}" ItemTemplate="{DynamicResource FaceDataTemplate}"/>
         </Grid>
     </Viewbox>
