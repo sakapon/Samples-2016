@@ -5,25 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FaceWpf"
         mc:Ignorable="d"
-        Title="Face" Height="480" Width="720" AllowDrop="True">
+        Title="Face" Height="480" Width="720" FontSize="24" AllowDrop="True">
     <Window.Resources>
         <ItemsPanelTemplate x:Key="FacesPanelTemplate">
             <Canvas/>
         </ItemsPanelTemplate>
         <DataTemplate x:Key="FaceDataTemplate">
-            <Grid>
-                <Rectangle Stroke="#FFEE6633" StrokeThickness="4" Width="{Binding FaceRectangle.Width}" Height="{Binding FaceRectangle.Height}" RenderTransformOrigin="0.5,0.5">
-                    <Rectangle.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform X="{Binding FaceRectangle.Left}" Y="{Binding FaceRectangle.Top}"/>
-                        </TransformGroup>
-                    </Rectangle.RenderTransform>
-                </Rectangle>
+            <Grid RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="{Binding FaceRectangle.Left}" Y="{Binding FaceRectangle.Top}"/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Rectangle Stroke="#FFEE6633" StrokeThickness="4" Width="{Binding FaceRectangle.Width}" Height="{Binding FaceRectangle.Height}" HorizontalAlignment="Left"/>
+                <StackPanel Margin="0,-36,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding FaceAttributes.Gender}" Style="{DynamicResource AttributeTextStyle}"/>
+                    <TextBlock Text="{Binding FaceAttributes.Age}" Style="{DynamicResource AttributeTextStyle}"/>
+                </StackPanel>
             </Grid>
         </DataTemplate>
+        <Style x:Key="AttributeTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFEE6633"/>
+            <Setter Property="Margin" Value="4,0"/>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <local:AppModel/>
