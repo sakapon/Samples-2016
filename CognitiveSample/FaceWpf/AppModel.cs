@@ -20,7 +20,7 @@ namespace FaceWpf
         static string SubscriptionKey { get; } = ConfigurationManager.AppSettings["SubscriptionKey"];
         FaceServiceClient Client { get; } = new FaceServiceClient(SubscriptionKey);
 
-        public ReactiveProperty<string> ImagePath { get; } = new ReactiveProperty<string>(mode: ReactivePropertyMode.None);
+        public ReactiveProperty<string> ImageUrl { get; } = new ReactiveProperty<string>(mode: ReactivePropertyMode.None);
         public ReadOnlyReactiveProperty<BitmapImage> BitmapImage { get; }
         public ReactiveProperty<Face[]> DetectionResult { get; } = new ReactiveProperty<Face[]>();
 
@@ -28,27 +28,27 @@ namespace FaceWpf
         {
             // JPEG ファイルは DPI が異なる場合があります (既定では 96 だが、72 などもある)。
             // Image コントロールに直接読み込ませると、DPI によりサイズが変化してしまいます。
-            BitmapImage = ImagePath
+            BitmapImage = ImageUrl
                 .Select(p => new BitmapImage(new Uri(p)))
                 .ToReadOnlyReactiveProperty();
-            ImagePath.Subscribe(_ => DetectAsync());
+            ImageUrl.Subscribe(_ => DetectAsync());
         }
 
         public async void DetectAsync()
         {
-            if (string.IsNullOrWhiteSpace(ImagePath.Value)) return;
+            if (string.IsNullOrWhiteSpace(ImageUrl.Value)) return;
 
             DetectionResult.Value = null;
 
             try
             {
-                if (ImagePath.Value.StartsWith("http://") || ImagePath.Value.StartsWith("https://"))
+                if (ImageUrl.Value.StartsWith("http://") || ImageUrl.Value.StartsWith("https://"))
                 {
-                    DetectionResult.Value = await Client.DetectAsync(ImagePath.Value, returnFaceAttributes: (FaceAttributeType[])Enum.GetValues(typeof(FaceAttributeType)));
+                    DetectionResult.Value = await Client.DetectAsync(ImageUrl.Value, returnFaceAttributes: (FaceAttributeType[])Enum.GetValues(typeof(FaceAttributeType)));
                 }
                 else
                 {
-                    using (var stream = File.OpenRead(ImagePath.Value))
+                    using (var stream = File.OpenRead(ImageUrl.Value))
                     {
                         DetectionResult.Value = await Client.DetectAsync(stream, returnFaceAttributes: (FaceAttributeType[])Enum.GetValues(typeof(FaceAttributeType)));
                     }

@@ -33,7 +33,7 @@ namespace FaceWpf
             if (string.IsNullOrWhiteSpace(imageUrl)) return;
 
             var appModel = (AppModel)DataContext;
-            appModel.ImagePath.Value = imageUrl;
+            appModel.ImageUrl.Value = imageUrl;
         }
 
         static string GetImageUrl(IDataObject data)
