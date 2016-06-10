@@ -21,16 +21,24 @@ namespace FaceWpf
         FaceServiceClient Client { get; } = new FaceServiceClient(SubscriptionKey);
 
         public ReactiveProperty<string> ImageUrl { get; } = new ReactiveProperty<string>(mode: ReactivePropertyMode.None);
-        public ReadOnlyReactiveProperty<BitmapImage> BitmapImage { get; }
+        public ReactiveProperty<BitmapImage> BitmapImage { get; } = new ReactiveProperty<BitmapImage>();
         public ReactiveProperty<Face[]> DetectionResult { get; } = new ReactiveProperty<Face[]>();
 
         public AppModel()
         {
             // JPEG ファイルは DPI が異なる場合があります (既定では 96 だが、72 などもある)。
             // Image コントロールに直接読み込ませると、DPI によりサイズが変化してしまいます。
-            BitmapImage = ImageUrl
-                .Select(p => new BitmapImage(new Uri(p)))
-                .ToReadOnlyReactiveProperty();
+            ImageUrl
+                .Subscribe(u =>
+                {
+                    var image = new BitmapImage(new Uri(u));
+
+                    // ダウンロードの要否で分岐します。
+                    if (image.IsDownloading)
+                        image.DownloadCompleted += (o, e) => BitmapImage.Value = image;
+                    else
+                        BitmapImage.Value = image;
+                });
             ImageUrl.Subscribe(_ => DetectAsync());
         }
 
