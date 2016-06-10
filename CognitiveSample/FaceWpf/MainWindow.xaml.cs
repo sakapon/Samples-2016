@@ -23,6 +23,17 @@ namespace FaceWpf
         public MainWindow()
         {
             InitializeComponent();
+
+            Drop += MainWindow_Drop;
+        }
+
+        void MainWindow_Drop(object sender, DragEventArgs e)
+        {
+            var filePaths = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (filePaths == null || filePaths.Length < 1) return;
+
+            var appModel = (AppModel)DataContext;
+            appModel.ImagePath.Value = filePaths[0];
         }
     }
 }
