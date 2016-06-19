@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Face" Height="480" Width="720" FontSize="24" AllowDrop="True">
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <ItemsPanelTemplate x:Key="FacesPanelTemplate">
             <Canvas/>
         </ItemsPanelTemplate>
@@ -40,6 +41,7 @@
         <Grid>
             <Image Source="{Binding}" Width="{Binding PixelWidth}" Height="{Binding PixelHeight}" DataContext="{Binding BitmapImage.Value}"/>
             <ItemsControl ItemsSource="{Binding DetectionResult.Value}" ItemsPanel="{DynamicResource FacesPanelTemplate}" ItemTemplate="{DynamicResource FaceDataTemplate}"/>
+            <TextBlock Margin="100" Text="Drop Image Here" Visibility="{Binding IsImageEmpty.Value, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </Grid>
     </Viewbox>
 </Window>

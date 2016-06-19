@@ -24,6 +24,8 @@ namespace FaceWpf
         public ReactiveProperty<BitmapImage> BitmapImage { get; } = new ReactiveProperty<BitmapImage>();
         public ReactiveProperty<Face[]> DetectionResult { get; } = new ReactiveProperty<Face[]>();
 
+        public ReadOnlyReactiveProperty<bool> IsImageEmpty { get; }
+
         public AppModel()
         {
             // JPEG ファイルは DPI が異なる場合があります (既定では 96 だが、72 などもある)。
@@ -39,7 +41,12 @@ namespace FaceWpf
                     else
                         BitmapImage.Value = image;
                 });
-            ImageUrl.Subscribe(_ => DetectAsync());
+            ImageUrl
+                .Subscribe(_ => DetectAsync());
+
+            IsImageEmpty = ImageUrl
+                .Select(u => u == null)
+                .ToReadOnlyReactiveProperty(true);
         }
 
         public async void DetectAsync()
