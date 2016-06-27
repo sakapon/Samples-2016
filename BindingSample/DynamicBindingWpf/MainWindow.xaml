@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DynamicBindingWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" FontSize="36">
+    <Window.DataContext>
+        <local:AppModel/>
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox Text="{Binding TextModel.Input, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding TextModel.Output}" TextWrapping="Wrap" Grid.Row="1"/>
     </Grid>
 </Window>
