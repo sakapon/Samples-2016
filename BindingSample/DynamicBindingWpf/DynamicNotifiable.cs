@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace DynamicBindingWpf
 {
     public static class DynamicNotifiable
     {
-        public static DynamicNotifiable<T> ToDynamicNotifiable<T>(this T target) => new DynamicNotifiable<T>(target);
+        public static DynamicNotifiable<T> ToDynamicNotifiable<T>(this T target, int intervalInMilliseconds = 1000) =>
+            new DynamicNotifiable<T>(target, intervalInMilliseconds);
     }
 
     public class DynamicNotifiable<T> : DynamicObject, INotifyPropertyChanged
@@ -22,7 +23,9 @@ namespace DynamicBindingWpf
         Dictionary<string, PropertyInfo> Properties;
         Dictionary<string, object> PropertyValuesCache;
 
-        public DynamicNotifiable(T target)
+        Timer SyncTimer;
+
+        public DynamicNotifiable(T target, int intervalInMilliseconds = 1000)
         {
             Target = target;
 
@@ -30,6 +33,8 @@ namespace DynamicBindingWpf
                 .ToDictionary(p => p.Name);
             PropertyValuesCache = Properties.Values
                 .ToDictionary(p => p.Name, p => p.GetValue(Target));
+
+            SyncTimer = new Timer(o => SyncPropertyValues(), null, intervalInMilliseconds, intervalInMilliseconds);
         }
 
         public T GetTargetObject() => Target;
@@ -61,6 +66,26 @@ namespace DynamicBindingWpf
 
         public void NotifyPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        #endregion
+
+        #region Sync
+
+        void SyncPropertyValues()
+        {
+            foreach (var name in Properties.Keys)
+                SyncPropertyValue(name);
+        }
+
+        void SyncPropertyValue(string propertyName)
+        {
+            var oldValue = PropertyValuesCache[propertyName];
+            var newValue = Properties[propertyName].GetValue(Target);
+
+            if (Equals(oldValue, newValue)) return;
+            PropertyValuesCache[propertyName] = newValue;
+            NotifyPropertyChanged(propertyName);
+        }
 
         #endregion
     }
