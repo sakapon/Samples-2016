@@ -9,13 +9,13 @@ namespace BindingConsole
         [STAThread]
         static void Main(string[] args)
         {
-            BindOneWay();
+            Bind_OneWay();
         }
 
-        static void BindOneWay()
+        static void Bind_OneWay()
         {
             // Binding Source (Any object).
-            var person = new Person0 { Id = 0, Name = "Taro" };
+            var person = new Person1 { Id = 123, Name = "Taro" };
 
             // Binding Target must be FrameworkElement.
             var textBlock = new TextBlock { Text = "Default" };
@@ -26,7 +26,7 @@ namespace BindingConsole
             textBlock.SetBinding(TextBlock.TextProperty, binding);
             Console.WriteLine(textBlock.Text);
 
-            // Changes value.
+            // Changes source value.
             person.Name = "Jiro";
             Console.WriteLine(textBlock.Text);
         }
