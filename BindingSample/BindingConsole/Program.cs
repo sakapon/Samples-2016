@@ -10,6 +10,7 @@ namespace BindingConsole
         static void Main(string[] args)
         {
             Bind_OneWay();
+            Bind_TwoWay();
         }
 
         static void Bind_OneWay()
@@ -29,6 +30,29 @@ namespace BindingConsole
             // Changes source value.
             person.Name = "Jiro";
             Console.WriteLine(textBlock.Text);
+        }
+
+        static void Bind_TwoWay()
+        {
+            // Binding Source (Any object).
+            var person = new Person1 { Id = 123, Name = "Taro" };
+
+            // Binding Target must be FrameworkElement.
+            var textBox = new TextBox { Text = "Default" };
+            Console.WriteLine(textBox.Text);
+
+            // Binds target to source.
+            var binding = new Binding(nameof(person.Name)) { Source = person, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+            textBox.SetBinding(TextBox.TextProperty, binding);
+            Console.WriteLine(textBox.Text);
+
+            // Changes source value.
+            person.Name = "Jiro";
+            Console.WriteLine(textBox.Text);
+
+            // Changes target value.
+            textBox.Text = "Saburo";
+            Console.WriteLine(person.Name);
         }
     }
 }
