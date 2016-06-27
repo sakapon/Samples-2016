@@ -9,6 +9,11 @@ namespace BindingConsole
         [STAThread]
         static void Main(string[] args)
         {
+            BindOneWay();
+        }
+
+        static void BindOneWay()
+        {
             // Binding Source (Any object).
             var person = new Person0 { Id = 0, Name = "Taro" };
 
