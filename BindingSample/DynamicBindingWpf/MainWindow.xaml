@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DynamicBindingWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" FontSize="36">
+        Title="Dynamic Binding" Height="400" Width="600" FontSize="36">
     <Window.DataContext>
         <local:AppModel/>
     </Window.DataContext>
