@@ -11,6 +11,7 @@ namespace BindingConsole
         {
             Bind_OneWay();
             Bind_TwoWay();
+            Bind_Indexer_TwoWay();
         }
 
         static void Bind_OneWay()
@@ -53,6 +54,30 @@ namespace BindingConsole
             // Changes target value.
             textBox.Text = "Saburo";
             Console.WriteLine(person.Name);
+        }
+
+        static void Bind_Indexer_TwoWay()
+        {
+            // Binding Source with indexer.
+            var map = new PersonMap();
+            map[123] = "Taro";
+
+            // Binding Target must be FrameworkElement.
+            var textBox = new TextBox { Text = "Default" };
+            Console.WriteLine(textBox.Text);
+
+            // Binds target to source.
+            var binding = new Binding("[123]") { Source = map, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+            textBox.SetBinding(TextBox.TextProperty, binding);
+            Console.WriteLine(textBox.Text);
+
+            // Changes source value.
+            map[123] = "Jiro";
+            Console.WriteLine(textBox.Text);
+
+            // Changes target value.
+            textBox.Text = "Saburo";
+            Console.WriteLine(map[123]);
         }
     }
 }
