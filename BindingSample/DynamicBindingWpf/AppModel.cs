@@ -4,19 +4,20 @@ namespace DynamicBindingWpf
 {
     public class AppModel
     {
-        public dynamic TextModel { get; } = new TextModel().ToDynamicNotifiable();
+        public dynamic TextModel { get; } = new TextModel().ToDynamicNotifiable(300);
     }
 
     public class TextModel
     {
-        string input;
+        string _Input;
+
         public string Input
         {
-            get { return input; }
+            get { return _Input; }
             set
             {
-                input = value;
-                Output = input?.ToUpper();
+                _Input = value;
+                Output = _Input?.ToUpper();
             }
         }
 
