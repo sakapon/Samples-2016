@@ -12,6 +12,9 @@ namespace DynamicBindingWpf
     {
         public static DynamicNotifiable<T> ToDynamicNotifiable<T>(this T target, int intervalInMilliseconds = 1000) =>
             new DynamicNotifiable<T>(target, intervalInMilliseconds);
+
+        public static bool IsIndexer(this PropertyInfo property) =>
+            property.Name == "Item" && property.GetIndexParameters().Length > 0;
     }
 
     public class DynamicNotifiable<T> : DynamicObject, INotifyPropertyChanged
@@ -30,6 +33,7 @@ namespace DynamicBindingWpf
             Target = target;
 
             Properties = Target.GetType().GetProperties()
+                .Where(p => !p.IsIndexer())
                 .ToDictionary(p => p.Name);
             PropertyValuesCache = Properties.Values
                 .ToDictionary(p => p.Name, p => p.GetValue(Target));
