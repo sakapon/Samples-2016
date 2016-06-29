@@ -19,8 +19,6 @@ namespace DynamicBindingWpf
 
     public class DynamicNotifiable<T> : DynamicObject, INotifyPropertyChanged
     {
-        public const string IndexerName = "Item[]";
-
         T Target { get; }
 
         Dictionary<string, PropertyInfo> Properties;
