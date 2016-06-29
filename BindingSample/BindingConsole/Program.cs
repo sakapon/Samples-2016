@@ -59,8 +59,7 @@ namespace BindingConsole
         static void Bind_Indexer_TwoWay()
         {
             // Binding Source with indexer.
-            var map = new PersonMap();
-            map[123] = "Taro";
+            var map = new PersonMap { [123] = "Taro" };
 
             // Binding Target must be FrameworkElement.
             var textBox = new TextBox { Text = "Default" };
