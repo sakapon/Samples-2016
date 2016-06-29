@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Dynamic;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -12,6 +13,7 @@ namespace BindingConsole
             Bind_OneWay();
             Bind_TwoWay();
             Bind_Indexer_TwoWay();
+            Bind_Expando_TwoWay();
         }
 
         static void Bind_OneWay()
@@ -77,6 +79,31 @@ namespace BindingConsole
             // Changes target value.
             textBox.Text = "Saburo";
             Console.WriteLine(map[123]);
+        }
+
+        static void Bind_Expando_TwoWay()
+        {
+            // Binding Source (Any object).
+            dynamic person = new ExpandoObject();
+            person.Id = 123;
+            person.Name = "Taro";
+
+            // Binding Target must be FrameworkElement.
+            var textBox = new TextBox { Text = "Default" };
+            Console.WriteLine(textBox.Text);
+
+            // Binds target to source.
+            var binding = new Binding(nameof(person.Name)) { Source = person, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+            textBox.SetBinding(TextBox.TextProperty, binding);
+            Console.WriteLine(textBox.Text);
+
+            // Changes source value.
+            person.Name = "Jiro";
+            Console.WriteLine(textBox.Text);
+
+            // Changes target value.
+            textBox.Text = "Saburo";
+            Console.WriteLine(person.Name);
         }
     }
 }
