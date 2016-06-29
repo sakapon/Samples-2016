@@ -63,6 +63,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppModel.cs" />
+    <Compile Include="AppModel2.cs" />
     <Compile Include="DynamicNotifiable.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
