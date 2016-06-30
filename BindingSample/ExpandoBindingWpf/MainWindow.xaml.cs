@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,14 @@ namespace ExpandoBindingWpf
         public MainWindow()
         {
             InitializeComponent();
+
+            dynamic model = DataContext;
+
+            ((INotifyPropertyChanged)model).PropertyChanged += (o, e) =>
+            {
+                if (e.PropertyName == "Input")
+                    model.Output = model.Input?.ToUpper();
+            };
         }
     }
 }
