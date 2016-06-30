@@ -7,7 +7,7 @@ using System.Linq;
 namespace BindingConsole
 {
     /// <summary>
-    /// <see cref="ExpandoObject"/> クラスと同等のクラスです。
+    /// A class such as the <see cref="ExpandoObject"/> class.
     /// </summary>
     public class ExpandoObject2 : DynamicObject, INotifyPropertyChanged
     {
