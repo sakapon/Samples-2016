@@ -4,7 +4,7 @@ namespace DynamicBindingWpf
 {
     public class AppModel
     {
-        public dynamic TextModel { get; } = new TextModel().ToDynamicNotifiable(300);
+        public dynamic TextModel { get; } = new TextModel().ToDynamicSyncProxy(300);
     }
 
     public class TextModel

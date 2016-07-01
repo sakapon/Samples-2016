@@ -8,16 +8,16 @@ using System.Threading;
 
 namespace DynamicBindingWpf
 {
-    public static class DynamicNotifiable
+    public static class DynamicSyncProxy
     {
-        public static DynamicNotifiable<T> ToDynamicNotifiable<T>(this T target, int intervalInMilliseconds = 1000) =>
-            new DynamicNotifiable<T>(target, intervalInMilliseconds);
+        public static DynamicSyncProxy<T> ToDynamicSyncProxy<T>(this T target, int intervalInMilliseconds = 1000) =>
+            new DynamicSyncProxy<T>(target, intervalInMilliseconds);
 
         public static bool IsIndexer(this PropertyInfo property) =>
             property.Name == "Item" && property.GetIndexParameters().Length > 0;
     }
 
-    public class DynamicNotifiable<T> : DynamicObject, INotifyPropertyChanged
+    public class DynamicSyncProxy<T> : DynamicObject, INotifyPropertyChanged
     {
         T Target { get; }
 
@@ -26,7 +26,7 @@ namespace DynamicBindingWpf
 
         Timer SyncTimer;
 
-        public DynamicNotifiable(T target, int intervalInMilliseconds = 1000)
+        public DynamicSyncProxy(T target, int intervalInMilliseconds = 1000)
         {
             Target = target;
 
