@@ -19,7 +19,7 @@ namespace DynamicBindingWpf
 
     public class DynamicSyncProxy<T> : DynamicObject, INotifyPropertyChanged
     {
-        T Target { get; }
+        T Target;
 
         Dictionary<string, PropertyInfo> Properties;
         Dictionary<string, object> PropertyValuesCache;

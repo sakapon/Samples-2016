@@ -7,15 +7,15 @@ namespace BindingConsole
 {
     public class PersonMap : INotifyPropertyChanged
     {
-        Dictionary<int, string> persons = new Dictionary<int, string>();
+        Dictionary<int, string> Persons = new Dictionary<int, string>();
 
         public string this[int id]
         {
-            get { return persons[id]; }
+            get { return Persons[id]; }
             set
             {
-                if (persons.ContainsKey(id) && persons[id] == value) return;
-                persons[id] = value;
+                if (Persons.ContainsKey(id) && Persons[id] == value) return;
+                Persons[id] = value;
                 NotifyPropertyChanged(Binding.IndexerName);
             }
         }
