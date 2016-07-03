@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Dynamic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -16,6 +18,7 @@ namespace BindingConsole
             Bind_Indexer_TwoWay();
             Bind_Expando_TwoWay();
             Bind_Collection();
+            Bind_Collection_View();
         }
 
         static void Bind_OneWay()
@@ -134,6 +137,29 @@ namespace BindingConsole
 
             // MEMO: ItemsSource に値を設定している場合、Items を直接変更しようとすると例外が発生します。
             //itemsControl.Items.Add(jiro);
+        }
+
+        static void Bind_Collection_View()
+        {
+            var people = new ObservableCollection<Person1>
+            {
+                new Person1 { Id = 123, Name = "Taro" },
+                new Person1 { Id = 234, Name = "Jiro" },
+                new Person1 { Id = 678, Name = "Mana" },
+                new Person1 { Id = 789, Name = "Kana" },
+            };
+
+            var itemsControl = new ItemsControl { ItemsSource = people };
+            Console.WriteLine(string.Join(", ", itemsControl.Items.Cast<Person1>().Select(p => p.Name)));
+
+            itemsControl.Items.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+            Console.WriteLine(string.Join(", ", itemsControl.Items.Cast<Person1>().Select(p => p.Name)));
+
+            itemsControl.Items.Filter = o => ((Person1)o).Name.Contains("ana");
+            Console.WriteLine(string.Join(", ", itemsControl.Items.Cast<Person1>().Select(p => p.Name)));
+
+            people.Add(new Person1 { Id = 567, Name = "Hana" });
+            Console.WriteLine(string.Join(", ", itemsControl.Items.Cast<Person1>().Select(p => p.Name)));
         }
     }
 }
