@@ -110,26 +110,30 @@ namespace BindingConsole
 
         static void Bind_Collection()
         {
-            // Binding Source for collection.
-            var people = new ObservableCollection<Person1>
-            {
-                new Person1 { Id = 123, Name = "Taro" },
-            };
+            var taro = new Person1 { Id = 123, Name = "Taro" };
+            var jiro = new Person1 { Id = 234, Name = "Jiro" };
+
+            // Binding Source (collection).
+            var people = new ObservableCollection<Person1> { taro };
 
             // Binding Target.
             var itemsControl = new ItemsControl();
             Console.WriteLine(itemsControl.Items.Count);
 
             // Binds target to source.
-            var binding = new Binding { Source = people };
-            itemsControl.SetBinding(ItemsControl.ItemsSourceProperty, binding);
+            // MEMO: Binding Source のオブジェクト自体が変更されないのであれば、
+            // ItemsSource プロパティのデータ バインディングは必須ではありません。
+            itemsControl.ItemsSource = people;
             Console.WriteLine(itemsControl.Items.Count);
 
-            // Changes source value.
-            people.Add(new Person1 { Id = 234, Name = "Jiro" });
+            // Changes source collection.
+            people.Add(jiro);
             Console.WriteLine(itemsControl.Items.Count);
             people.RemoveAt(0);
             Console.WriteLine(itemsControl.Items.Count);
+
+            // MEMO: ItemsSource に値を設定している場合、Items を直接変更しようとすると例外が発生します。
+            //itemsControl.Items.Add(jiro);
         }
     }
 }
