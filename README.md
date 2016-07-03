@@ -6,3 +6,6 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [Azure Web App をファイル サーバーとして使う](https://sakapon.wordpress.com/2016/05/22/azure-web-app-dav/)
 - [Cognitive Services の Computer Vision API の利用](https://sakapon.wordpress.com/2016/06/29/cognitive-computer-vision/)
 - [Cognitive Services の Face API の利用](https://sakapon.wordpress.com/2016/06/30/cognitive-face/)
+- [C# のコードでデータ バインディング (1)](https://sakapon.wordpress.com/2016/07/01/databinding-console-1/)
+- [C# のコードでデータ バインディング (2)](https://sakapon.wordpress.com/2016/07/02/databinding-console-2/)
+- [C# のコードでデータ バインディング (3)](https://sakapon.wordpress.com/2016/07/03/databinding-console-3/)
