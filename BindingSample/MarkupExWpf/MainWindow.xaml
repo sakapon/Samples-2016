@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarkupExWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Markup Ex" Height="{local:AppSettings WindowHeight}" Width="{local:AppSettings WindowWidth}" ResizeMode="{local:AppSettings ResizeMode}" FontSize="{local:AppSettings FontSize}">
     <Grid>
-        
+        <TextBlock Text="{local:AppSettings Message}"/>
     </Grid>
 </Window>
