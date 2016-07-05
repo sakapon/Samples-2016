@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BindingConsole", "BindingCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpandoBindingWpf", "ExpandoBindingWpf\ExpandoBindingWpf.csproj", "{ACBC63D1-28F2-4E2E-9226-8DD5A8338911}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkupExWpf", "MarkupExWpf\MarkupExWpf.csproj", "{D818A9DC-868C-41EF-B39B-7D8C447B878C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ACBC63D1-28F2-4E2E-9226-8DD5A8338911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACBC63D1-28F2-4E2E-9226-8DD5A8338911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACBC63D1-28F2-4E2E-9226-8DD5A8338911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D818A9DC-868C-41EF-B39B-7D8C447B878C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D818A9DC-868C-41EF-B39B-7D8C447B878C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D818A9DC-868C-41EF-B39B-7D8C447B878C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D818A9DC-868C-41EF-B39B-7D8C447B878C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
