@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace BindingConsole
@@ -21,7 +22,7 @@ namespace BindingConsole
             {
                 if (_Id == value) return;
                 _Id = value;
-                NotifyPropertyChanged(nameof(Id));
+                NotifyPropertyChanged();
             }
         }
 
@@ -34,13 +35,13 @@ namespace BindingConsole
             {
                 if (_Name == value) return;
                 _Name = value;
-                NotifyPropertyChanged(nameof(Name));
+                NotifyPropertyChanged();
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void NotifyPropertyChanged(string propertyName) =>
+        public void NotifyPropertyChanged([CallerMemberName]string propertyName = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
