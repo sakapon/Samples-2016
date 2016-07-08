@@ -15,6 +15,7 @@ namespace BindingConsole
         {
             Bind_OneWay();
             Bind_TwoWay();
+            Bind_Dependency_TwoWay();
             Bind_Indexer_TwoWay();
             Bind_Expando_TwoWay();
             Bind_Collection();
@@ -60,6 +61,31 @@ namespace BindingConsole
 
             // Changes target value.
             textBox.Text = "Saburo";
+            Console.WriteLine(person.Name);
+        }
+
+        static void Bind_Dependency_TwoWay()
+        {
+            // [STAThread] is unnecessary.
+            // Binding Source (Any object).
+            var person = new Person2 { Id = 123, Name = "Taro" };
+
+            // Binding Target must be DependencyObject.
+            var target = new Person2 { Name = "Default" };
+            Console.WriteLine(target.Name);
+
+            // Binds target to source.
+            // Default mode is OneWay.
+            var binding = new Binding(nameof(person.Name)) { Source = person, Mode = BindingMode.TwoWay };
+            BindingOperations.SetBinding(target, Person2.NameProperty, binding);
+            Console.WriteLine(target.Name);
+
+            // Changes source value.
+            person.Name = "Jiro";
+            Console.WriteLine(target.Name);
+
+            // Changes target value.
+            target.Name = "Saburo";
             Console.WriteLine(person.Name);
         }
 
