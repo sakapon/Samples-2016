@@ -27,7 +27,7 @@ namespace BindingConsole
             // Binding Source (Any object).
             var person = new Person1 { Id = 123, Name = "Taro" };
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBlock = new TextBlock { Text = "Default" };
             Console.WriteLine(textBlock.Text);
 
@@ -46,7 +46,7 @@ namespace BindingConsole
             // Binding Source (Any object).
             var person = new Person1 { Id = 123, Name = "Taro" };
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBox = new TextBox { Text = "Default" };
             Console.WriteLine(textBox.Text);
 
@@ -70,7 +70,7 @@ namespace BindingConsole
             // Binding Source (Any object).
             var person = new Person2 { Id = 123, Name = "Taro" };
 
-            // Binding Target must be DependencyObject.
+            // Binding Target (DependencyObject).
             var target = new Person2 { Name = "Default" };
             Console.WriteLine(target.Name);
 
@@ -94,7 +94,7 @@ namespace BindingConsole
             // Binding Source with indexer.
             var map = new PersonMap { [123] = "Taro" };
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBox = new TextBox { Text = "Default" };
             Console.WriteLine(textBox.Text);
 
@@ -119,7 +119,7 @@ namespace BindingConsole
             person.Id = 123;
             person.Name = "Taro";
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBox = new TextBox { Text = "Default" };
             Console.WriteLine(textBox.Text);
 
