@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -201,7 +202,8 @@ namespace BindingConsole
             var textBlock = new TextBlock { Text = "Default" };
             grid.Children.Add(textBlock);
 
-            textBlock.SetBinding(TextBlock.TextProperty, new Binding("/Name"));
+            textBlock.SetBinding(FrameworkElement.DataContextProperty, new Binding("/"));
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding("Name"));
             Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
             Console.WriteLine(textBlock.Text);
 
