@@ -20,6 +20,7 @@ namespace BindingConsole
             Bind_Expando_TwoWay();
             Bind_Collection();
             Bind_Collection_View();
+            Bind_Collection_CurrentItem();
         }
 
         static void Bind_OneWay()
@@ -71,7 +72,7 @@ namespace BindingConsole
             var person = new Person2 { Id = 123, Name = "Taro" };
 
             // Binding Target (DependencyObject).
-            var target = new Person2 { Name = "Default" };
+            var target = new Person2 { Id = 999, Name = "Default" };
             Console.WriteLine(target.Name);
 
             // Binds target to source.
@@ -186,6 +187,32 @@ namespace BindingConsole
 
             people.Add(new Person1 { Id = 567, Name = "Hana" });
             Console.WriteLine(string.Join(", ", itemsControl.Items.Cast<Person1>().Select(p => p.Name)));
+        }
+
+        static void Bind_Collection_CurrentItem()
+        {
+            var taro = new Person1 { Id = 123, Name = "Taro" };
+            var jiro = new Person1 { Id = 234, Name = "Jiro" };
+            var people = new[] { taro, jiro };
+
+            var grid = new Grid { DataContext = people };
+            var listBox = new ListBox { IsSynchronizedWithCurrentItem = true };
+            grid.Children.Add(listBox);
+            var textBlock = new TextBlock { Text = "Default" };
+            grid.Children.Add(textBlock);
+
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding("/Name"));
+            Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
+            Console.WriteLine(textBlock.Text);
+
+            // MEMO: In case that IsSynchronizedWithCurrentItem is false, SelectedValue is null.
+            listBox.SetBinding(ItemsControl.ItemsSourceProperty, new Binding());
+            Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
+            Console.WriteLine(textBlock.Text);
+
+            listBox.SelectedValue = jiro;
+            Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
+            Console.WriteLine(textBlock.Text);
         }
     }
 }
