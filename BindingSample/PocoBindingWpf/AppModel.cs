@@ -4,11 +4,11 @@ namespace PocoBindingWpf
 {
     public class AppModel
     {
-        public TextModel TextModel { get; } = new TextModel();
+        public InputModel Input { get; } = new InputModel();
     }
 
-    public class TextModel
+    public class InputModel
     {
-        public string Input { get; set; }
+        public long Number { get; set; }
     }
 }
