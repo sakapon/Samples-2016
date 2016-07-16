@@ -19,9 +19,12 @@ namespace BindingConsole
             Bind_Dependency_TwoWay();
             Bind_Indexer_TwoWay();
             Bind_Expando_TwoWay();
+
             Bind_Collection();
             Bind_Collection_View();
             Bind_Collection_CurrentItem();
+
+            PropertyDescriptor_AddValueChanged();
         }
 
         static void Bind_OneWay()
@@ -215,6 +218,15 @@ namespace BindingConsole
             listBox.SelectedValue = jiro;
             Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
             Console.WriteLine(textBlock.Text);
+        }
+
+        static void PropertyDescriptor_AddValueChanged()
+        {
+            var person = new Person0 { Id = 123, Name = "Taro" };
+            var properties = TypeDescriptor.GetProperties(person);
+            var nameProp = properties[nameof(person.Name)];
+            nameProp.AddValueChanged(person, (o, e) => Console.WriteLine(person.Name));
+            nameProp.SetValue(person, "Jiro");
         }
     }
 }
