@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -15,10 +16,16 @@ namespace BindingConsole
         {
             Bind_OneWay();
             Bind_TwoWay();
+            Bind_Poco_TwoWay();
+            Bind_Dependency_TwoWay();
             Bind_Indexer_TwoWay();
             Bind_Expando_TwoWay();
+
             Bind_Collection();
             Bind_Collection_View();
+            Bind_Collection_CurrentItem();
+
+            PropertyDescriptor_AddValueChanged();
         }
 
         static void Bind_OneWay()
@@ -26,7 +33,7 @@ namespace BindingConsole
             // Binding Source (Any object).
             var person = new Person1 { Id = 123, Name = "Taro" };
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBlock = new TextBlock { Text = "Default" };
             Console.WriteLine(textBlock.Text);
 
@@ -45,7 +52,7 @@ namespace BindingConsole
             // Binding Source (Any object).
             var person = new Person1 { Id = 123, Name = "Taro" };
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBox = new TextBox { Text = "Default" };
             Console.WriteLine(textBox.Text);
 
@@ -63,12 +70,63 @@ namespace BindingConsole
             Console.WriteLine(person.Name);
         }
 
+        static void Bind_Poco_TwoWay()
+        {
+            // Binding Source (Any object).
+            var person = new Person0 { Id = 123, Name = "Taro" };
+
+            // Binding Target (DependencyObject).
+            var textBox = new TextBox { Text = "Default" };
+            Console.WriteLine(textBox.Text);
+
+            // Binds target to source.
+            var binding = new Binding(nameof(person.Name)) { Source = person, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+            textBox.SetBinding(TextBox.TextProperty, binding);
+            Console.WriteLine(textBox.Text);
+
+            // Changes source value.
+            // Notification does not work in usual property setting.
+            //person.Name = "Jiro";
+            var properties = TypeDescriptor.GetProperties(person);
+            properties[nameof(person.Name)].SetValue(person, "Jiro");
+            Console.WriteLine(textBox.Text);
+
+            // Changes target value.
+            textBox.Text = "Saburo";
+            Console.WriteLine(person.Name);
+        }
+
+        static void Bind_Dependency_TwoWay()
+        {
+            // [STAThread] is unnecessary.
+            // Binding Source (Any object).
+            var person = new Person2 { Id = 123, Name = "Taro" };
+
+            // Binding Target (DependencyObject).
+            var target = new Person2 { Id = 999, Name = "Default" };
+            Console.WriteLine(target.Name);
+
+            // Binds target to source.
+            // Default mode is OneWay.
+            var binding = new Binding(nameof(person.Name)) { Source = person, Mode = BindingMode.TwoWay };
+            BindingOperations.SetBinding(target, Person2.NameProperty, binding);
+            Console.WriteLine(target.Name);
+
+            // Changes source value.
+            person.Name = "Jiro";
+            Console.WriteLine(target.Name);
+
+            // Changes target value.
+            target.Name = "Saburo";
+            Console.WriteLine(person.Name);
+        }
+
         static void Bind_Indexer_TwoWay()
         {
             // Binding Source with indexer.
             var map = new PersonMap { [123] = "Taro" };
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBox = new TextBox { Text = "Default" };
             Console.WriteLine(textBox.Text);
 
@@ -93,7 +151,7 @@ namespace BindingConsole
             person.Id = 123;
             person.Name = "Taro";
 
-            // Binding Target must be FrameworkElement.
+            // Binding Target (DependencyObject).
             var textBox = new TextBox { Text = "Default" };
             Console.WriteLine(textBox.Text);
 
@@ -160,6 +218,42 @@ namespace BindingConsole
 
             people.Add(new Person1 { Id = 567, Name = "Hana" });
             Console.WriteLine(string.Join(", ", itemsControl.Items.Cast<Person1>().Select(p => p.Name)));
+        }
+
+        static void Bind_Collection_CurrentItem()
+        {
+            var taro = new Person1 { Id = 123, Name = "Taro" };
+            var jiro = new Person1 { Id = 234, Name = "Jiro" };
+            var people = new[] { taro, jiro };
+
+            var grid = new Grid { DataContext = people };
+            var listBox = new ListBox { IsSynchronizedWithCurrentItem = true };
+            grid.Children.Add(listBox);
+            var textBlock = new TextBlock { Text = "Default" };
+            grid.Children.Add(textBlock);
+
+            textBlock.SetBinding(FrameworkElement.DataContextProperty, new Binding("/"));
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding("Name"));
+            Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
+            Console.WriteLine(textBlock.Text);
+
+            // MEMO: In case that IsSynchronizedWithCurrentItem is false, SelectedValue is null.
+            listBox.SetBinding(ItemsControl.ItemsSourceProperty, new Binding());
+            Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
+            Console.WriteLine(textBlock.Text);
+
+            listBox.SelectedValue = jiro;
+            Console.WriteLine((listBox.SelectedValue as Person1)?.Name ?? "null");
+            Console.WriteLine(textBlock.Text);
+        }
+
+        static void PropertyDescriptor_AddValueChanged()
+        {
+            var person = new Person0 { Id = 123, Name = "Taro" };
+            var properties = TypeDescriptor.GetProperties(person);
+            var nameProp = properties[nameof(person.Name)];
+            nameProp.AddValueChanged(person, (o, e) => Console.WriteLine(person.Name));
+            nameProp.SetValue(person, "Jiro");
         }
     }
 }
