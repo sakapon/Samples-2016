@@ -29,7 +29,7 @@ namespace PocoBindingWpf
 
             Loaded += (o, e) =>
             {
-                // Notification does not work in usual way.
+                // Notification does not work in usual property setting.
                 //AppModel.Input.Number = 1234;
                 SetValue(AppModel.Input, nameof(InputModel.Number), 1234);
             };

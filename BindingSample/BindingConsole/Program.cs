@@ -16,6 +16,7 @@ namespace BindingConsole
         {
             Bind_OneWay();
             Bind_TwoWay();
+            Bind_Poco_TwoWay();
             Bind_Dependency_TwoWay();
             Bind_Indexer_TwoWay();
             Bind_Expando_TwoWay();
@@ -62,6 +63,32 @@ namespace BindingConsole
 
             // Changes source value.
             person.Name = "Jiro";
+            Console.WriteLine(textBox.Text);
+
+            // Changes target value.
+            textBox.Text = "Saburo";
+            Console.WriteLine(person.Name);
+        }
+
+        static void Bind_Poco_TwoWay()
+        {
+            // Binding Source (Any object).
+            var person = new Person0 { Id = 123, Name = "Taro" };
+
+            // Binding Target (DependencyObject).
+            var textBox = new TextBox { Text = "Default" };
+            Console.WriteLine(textBox.Text);
+
+            // Binds target to source.
+            var binding = new Binding(nameof(person.Name)) { Source = person, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged };
+            textBox.SetBinding(TextBox.TextProperty, binding);
+            Console.WriteLine(textBox.Text);
+
+            // Changes source value.
+            // Notification does not work in usual property setting.
+            //person.Name = "Jiro";
+            var properties = TypeDescriptor.GetProperties(person);
+            properties[nameof(person.Name)].SetValue(person, "Jiro");
             Console.WriteLine(textBox.Text);
 
             // Changes target value.
