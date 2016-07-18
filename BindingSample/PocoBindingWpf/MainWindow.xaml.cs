@@ -38,18 +38,24 @@ namespace PocoBindingWpf
         }
     }
 
-    public static class TypeHelper
+    public static class PropertyHelper
     {
-        public static void SetValue(this object obj, string propertyName, object value)
+        public static PropertyDescriptor GetDescriptor(this object obj, string propertyName)
         {
             var properties = TypeDescriptor.GetProperties(obj);
-            properties[propertyName].SetValue(obj, value);
+            return properties[propertyName];
+        }
+
+        public static void SetValue(this object obj, string propertyName, object value)
+        {
+            var descriptor = obj.GetDescriptor(propertyName);
+            descriptor.SetValue(obj, value);
         }
 
         public static void AddValueChanged(this object obj, string propertyName, Action action)
         {
-            var properties = TypeDescriptor.GetProperties(obj);
-            properties[propertyName].AddValueChanged(obj, (o, e) => action());
+            var descriptor = obj.GetDescriptor(propertyName);
+            descriptor.AddValueChanged(obj, (o, e) => action());
         }
     }
 }
