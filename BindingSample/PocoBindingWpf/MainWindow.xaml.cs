@@ -31,19 +31,22 @@ namespace PocoBindingWpf
             {
                 // Notification does not work in usual property setting.
                 //AppModel.Input.Number = 1234;
-                SetValue(AppModel.Input, nameof(InputModel.Number), 1234);
+                AppModel.Input.SetValue(nameof(InputModel.Number), 1234);
             };
 
-            AddValueChanged(AppModel.Input, nameof(InputModel.Number), () => Console.WriteLine(AppModel.Input.Number));
+            AppModel.Input.AddValueChanged(nameof(InputModel.Number), () => Console.WriteLine(AppModel.Input.Number));
         }
+    }
 
-        static void SetValue(object obj, string propertyName, object value)
+    public static class TypeHelper
+    {
+        public static void SetValue(this object obj, string propertyName, object value)
         {
             var properties = TypeDescriptor.GetProperties(obj);
             properties[propertyName].SetValue(obj, value);
         }
 
-        static void AddValueChanged(object obj, string propertyName, Action action)
+        public static void AddValueChanged(this object obj, string propertyName, Action action)
         {
             var properties = TypeDescriptor.GetProperties(obj);
             properties[propertyName].AddValueChanged(obj, (o, e) => action());
