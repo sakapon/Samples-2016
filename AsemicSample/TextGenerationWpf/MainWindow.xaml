@@ -1,27 +1,35 @@
-﻿<Window x:Class="TextGenerationWpf.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextGenerationWpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        x:Class="TextGenerationWpf.MainWindow"
         mc:Ignorable="d"
         Title="Text Generation" Height="600" Width="900" FontSize="20">
     <Window.DataContext>
         <local:AppModel/>
     </Window.DataContext>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Right">
-            <TextBlock Margin="16,16,16,4"><Run Text="Weight: "/><Run Text="{Binding FeatureWeight.Value, StringFormat=\{0:F2\}}"/></TextBlock>
-            <Slider Value="{Binding FeatureWeight.Value}" Maximum="5" Width="120" Margin="16,4,16,16"/>
-            <Button Content="New Text" Width="120" Height="40" Margin="16"/>
+        <StackPanel DockPanel.Dock="Right" Margin="10">
+            <TextBlock Margin="10,20,10,4"><Run Text="Weight: "/><Run Text="{Binding FeatureWeight.Value, StringFormat=\{0:F2\}}"/></TextBlock>
+            <Slider Value="{Binding FeatureWeight.Value}" Maximum="5" Width="120" Margin="10,4,10,20"/>
+            <Button Content="New Text" Width="120" Height="40" Margin="10">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="GenerateText"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </StackPanel>
-        <Grid>
+        <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding SourceText.Value}" Margin="16"/>
-            <TextBox Text="{Binding GeneratedText.Value}" Margin="16" Grid.Column="1"/>
+            <TextBox Text="{Binding SourceText.Value}" Margin="10"/>
+            <TextBox Text="{Binding GeneratedText.Value}" Margin="10" Grid.Column="1"/>
         </Grid>
     </DockPanel>
 </Window>
