@@ -7,8 +7,7 @@ namespace TextGenerationWpf
 {
     public class AppModel
     {
-        const string Arinomamade_Lyrics = @"
-ふりはじめたゆきは
+        const string Arinomamade_Lyrics = @"ふりはじめたゆきは
 あしあとけして
 まっしろなせかいに
 ひとりのわたし
@@ -24,8 +23,7 @@ namespace TextGenerationWpf
 じぶんになるの
 なにもこわくない
 かぜよふけ
-すこしもさむくないわ
-";
+すこしもさむくないわ";
 
         public ReactiveProperty<double> FeatureWeight { get; } = new ReactiveProperty<double>(2.0);
         public ReactiveProperty<string> SourceText { get; } = new ReactiveProperty<string>(Arinomamade_Lyrics);
@@ -33,8 +31,11 @@ namespace TextGenerationWpf
 
         public void GenerateText()
         {
-            var generator = new OneTextGenerator { Delimiter = '\n', FeatureWeight = FeatureWeight.Value };
-            GeneratedText.Value = generator.Generate(SourceText.Value.Replace("\r\n", "\n"));
+            var generator = new PseudoGenerator<char, string>('\n', ToString) { FeatureWeight = FeatureWeight.Value };
+            generator.Train(SourceText.Value.Replace("\r\n", "\n"));
+            GeneratedText.Value = ToString(generator.Generate());
         }
+
+        static string ToString(IEnumerable<char> chars) => new string(chars.ToArray());
     }
 }
