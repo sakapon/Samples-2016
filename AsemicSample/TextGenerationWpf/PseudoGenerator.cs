@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TextGenerationWpf
 {
-    public class PseudoGenerator<TSource, TKey>
+    public class PseudoGenerator<TSource, TKey> where TSource : IEquatable<TSource>
     {
         public int MaxSubelementsLength { get; set; } = 4;
         public int TrialCount { get; set; } = 10000;
@@ -54,7 +54,39 @@ namespace TextGenerationWpf
 
         public TSource[] Generate()
         {
-            throw new NotImplementedException();
+            var newElements = new List<TSource> { Delimiter };
+            while (true)
+            {
+                newElements.AddRange(CreateNextElements(newElements));
+
+                var availableLength = newElements.LastIndexOf(Delimiter) - 1;
+                if (availableLength >= Source.Count)
+                    return newElements.Skip(1).Take(availableLength).ToArray();
+            }
         }
+
+        TSource[] CreateNextElements(List<TSource> elements)
+        {
+            var probabilityMap = Enumerable.Range(1, MaxSubelementsLength - 1)
+                .TakeWhile(i => i <= elements.Count)
+                .Select(l => elements.GetRange(elements.Count - l, l))
+                .SelectMany(last => SubelementMap
+                    .Where(p => Subelements[p.Key].Length > last.Count && StartsWith(Subelements[p.Key], last))
+                    .Select(p => CreatePair(new { last, subelement = Subelements[p.Key] }, p.Value)))
+                .ToDictionary(p => p.Key, p => p.Value)
+                .ToProbabilityMap();
+
+            if (probabilityMap.Count == 0)
+                return Subelements[SubelementMap1.GetNextRandomElement()];
+
+            var joint = probabilityMap.GetNextRandomElement();
+            return joint.subelement.Skip(joint.last.Count).ToArray();
+        }
+
+        public static bool StartsWith<T>(IList<T> source, IList<T> subsequence) where T : IEquatable<T> =>
+            source.Count >= subsequence.Count &&
+            Enumerable.Range(0, subsequence.Count).All(i => source[i].Equals(subsequence[i]));
+
+        static KeyValuePair<TKey_, TValue> CreatePair<TKey_, TValue>(TKey_ key, TValue value) => new KeyValuePair<TKey_, TValue>(key, value);
     }
 }
