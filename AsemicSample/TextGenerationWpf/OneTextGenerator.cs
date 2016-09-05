@@ -9,6 +9,7 @@ namespace TextGenerationWpf
         public int MaxSubstringLength { get; set; } = 4;
         public int TrialCount { get; set; } = 10000;
         public char Delimiter { get; set; } = ' ';
+        public double FeatureWeight { get; set; } = 2.0;
 
         Element<char, int> Separator;
         Dictionary<string, double> SubstringMap1;
@@ -22,9 +23,9 @@ namespace TextGenerationWpf
                 .SequenceJoin(Separator)
                 .ToArray();
 
-            SubstringMap1 = textWithIndex.ToSubelementMap(ToString, 1, TrialCount);
+            SubstringMap1 = textWithIndex.ToSubelementMap(ToString, 1, TrialCount, FeatureWeight);
             SubstringMap = Enumerable.Range(2, MaxSubstringLength - 1)
-                .Select(i => textWithIndex.ToSubelementMap(ToString, i, TrialCount))
+                .Select(i => textWithIndex.ToSubelementMap(ToString, i, TrialCount, FeatureWeight))
                 .SelectMany(d => d)
                 .ToDictionary(p => p.Key, p => p.Value);
 
@@ -77,7 +78,7 @@ namespace TextGenerationWpf
 
     public static class TextGenerationHelper
     {
-        public static Dictionary<TKey, double> ToSubelementMap<TSource, TData, TKey>(this IList<Element<TSource, TData>> elements, Func<IEnumerable<TSource>, TKey> keySelector, int subelementsLength, int trialCount)
+        public static Dictionary<TKey, double> ToSubelementMap<TSource, TData, TKey>(this IList<Element<TSource, TData>> elements, Func<IEnumerable<TSource>, TKey> keySelector, int subelementsLength, int trialCount, double featureWeight)
         {
             if (elements == null) throw new ArgumentNullException(nameof(elements));
 
@@ -85,7 +86,7 @@ namespace TextGenerationWpf
                 .Select(_ => elements.GetRandomPiece(subelementsLength))
                 .ToCountMap(es => keySelector(es.Select(e => e.Source)))
                 .ToProbabilityMap()
-                .ToEnhancedProbabilityMap();
+                .ToEnhancedProbabilityMap(x => Math.Pow(x, featureWeight));
         }
 
         public static IEnumerable<TSource> SequenceJoin<TSource>(this IEnumerable<IEnumerable<TSource>> source, TSource separator)

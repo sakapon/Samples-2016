@@ -33,7 +33,7 @@ namespace TextGenerationWpf
 
         public void GenerateText()
         {
-            var generator = new OneTextGenerator { Delimiter = '\n' };
+            var generator = new OneTextGenerator { Delimiter = '\n', FeatureWeight = FeatureWeight.Value };
             GeneratedText.Value = generator.Generate(SourceText.Value.Replace("\r\n", "\n"));
         }
     }
