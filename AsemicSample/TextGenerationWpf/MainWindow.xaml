@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TextGenerationWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Text Generation" Height="600" Width="900" FontSize="20">
+    <Window.DataContext>
+        <local:AppModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Right">
+            <TextBlock Margin="16,16,16,4"><Run Text="Weight: "/><Run Text="{Binding FeatureWeight.Value, StringFormat=\{0:F2\}}"/></TextBlock>
+            <Slider Value="{Binding FeatureWeight.Value}" Maximum="5" Width="120" Margin="16,4,16,16"/>
+            <Button Content="New Text" Width="120" Height="40" Margin="16"/>
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding SourceText.Value}" Margin="16"/>
+            <TextBox Text="{Binding GeneratedText.Value}" Margin="16" Grid.Column="1"/>
+        </Grid>
+    </DockPanel>
 </Window>
