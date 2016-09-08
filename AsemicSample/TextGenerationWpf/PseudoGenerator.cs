@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TextGenerationWpf
 {
-    public class PseudoGenerator<TSource, TKey> where TSource : IEquatable<TSource>
+    public class PseudoGenerator<TSource, TKey>
     {
         public int MaxSubelementsLength { get; set; } = 4;
         public int TrialCount { get; set; } = 10000;
@@ -13,7 +13,7 @@ namespace TextGenerationWpf
         public TSource Delimiter { get; }
         public Func<IEnumerable<TSource>, TKey> KeySelector { get; }
 
-        List<TSource> Source;
+        TSource[] Source;
         Dictionary<TKey, TSource[]> Subelements = new Dictionary<TKey, TSource[]>();
         Dictionary<TKey, double> SubelementMap1;
         Dictionary<TKey, double> SubelementMap;
@@ -26,9 +26,10 @@ namespace TextGenerationWpf
 
         public void Train(IEnumerable<TSource> source)
         {
-            Source = new List<TSource>(source);
-            Source.Insert(0, Delimiter);
-            Source.Add(Delimiter);
+            Source = source
+                .Prepend(Delimiter)
+                .Append(Delimiter)
+                .ToArray();
 
             SubelementMap1 = ToSubelementMap(Source, 1);
             SubelementMap = Enumerable.Range(2, MaxSubelementsLength - 1)
@@ -60,7 +61,7 @@ namespace TextGenerationWpf
                 newElements.AddRange(CreateNextElements(newElements));
 
                 var availableLength = newElements.LastIndexOf(Delimiter) - 1;
-                if (availableLength >= Source.Count)
+                if (availableLength >= Source.Length)
                     return newElements.Skip(1).Take(availableLength).ToArray();
             }
         }
@@ -71,7 +72,7 @@ namespace TextGenerationWpf
                 .TakeWhile(i => i <= elements.Count)
                 .Select(l => elements.GetRange(elements.Count - l, l))
                 .SelectMany(last => SubelementMap
-                    .Where(p => Subelements[p.Key].Length > last.Count && StartsWith(Subelements[p.Key], last))
+                    .Where(p => Subelements[p.Key].Length > last.Count && Subelements[p.Key].StartsWith(last))
                     .Select(p => CreatePair(new { last, subelement = Subelements[p.Key] }, p.Value)))
                 .ToDictionary(p => p.Key, p => p.Value)
                 .ToProbabilityMap();
@@ -82,10 +83,6 @@ namespace TextGenerationWpf
             var joint = probabilityMap.GetNextRandomElement();
             return joint.subelement.Skip(joint.last.Count).ToArray();
         }
-
-        public static bool StartsWith<T>(IList<T> source, IList<T> subsequence) where T : IEquatable<T> =>
-            source.Count >= subsequence.Count &&
-            Enumerable.Range(0, subsequence.Count).All(i => source[i].Equals(subsequence[i]));
 
         static KeyValuePair<TKey_, TValue> CreatePair<TKey_, TValue>(TKey_ key, TValue value) => new KeyValuePair<TKey_, TValue>(key, value);
     }
