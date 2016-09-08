@@ -8,7 +8,7 @@ namespace TextGenerationWpf
     public class AppModel
     {
         public ReactiveProperty<double> FeatureWeight { get; } = new ReactiveProperty<double>(2.0);
-        public ReactiveProperty<string> SourceText { get; } = new ReactiveProperty<string>(Arinomamade_Lyrics);
+        public ReactiveProperty<string> SourceText { get; } = new ReactiveProperty<string>(Lyrics_Arinomamade);
         public ReactiveProperty<string> GeneratedText { get; } = new ReactiveProperty<string>("");
 
         public void GenerateText()
@@ -20,7 +20,7 @@ namespace TextGenerationWpf
 
         static string ToString(IEnumerable<char> chars) => new string(chars.ToArray());
 
-        const string Arinomamade_Lyrics = @"ふりはじめたゆきは
+        const string Lyrics_Arinomamade = @"ふりはじめたゆきは
 あしあとけして
 まっしろなせかいに
 ひとりのわたし
@@ -37,5 +37,27 @@ namespace TextGenerationWpf
 なにもこわくない
 かぜよふけ
 すこしもさむくないわ";
+
+        const string Lyrics_LetItGo = @"The snow glows white on the mountain tonight
+Not a footprint to be seen.
+A kingdom of isolation,
+and it looks like I'm the Queen
+The wind is howling like this swirling storm inside
+Couldn't keep it in;
+Heaven knows I've tried
+Don't let them in,
+don't let them see
+Be the good girl you always have to be
+Conceal, don't feel,
+don't let them know
+Well now they know
+Let it go, let it go
+Can't hold it back anymore
+Let it go, let it go
+Turn away and slam the door
+I don't care
+what they're going to say
+Let the storm rage on.
+The cold never bothered me anyway";
     }
 }
