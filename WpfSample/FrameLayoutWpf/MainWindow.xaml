@@ -7,8 +7,73 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         x:Class="FrameLayoutWpf.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Frame Layout" Height="600" Width="600">
+    <Window.Resources>
+        <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="#99006600"/>
+            <Setter Property="BorderThickness" Value="10"/>
+        </Style>
+        <Style x:Key="RectangleStyle" TargetType="{x:Type Rectangle}">
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="400"/>
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#FFFF9900" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Style="{DynamicResource BorderStyle}">
+            <Rectangle Style="{DynamicResource RectangleStyle}">
+                <i:Interaction.Behaviors>
+                    <ei:TranslateZoomRotateBehavior/>
+                </i:Interaction.Behaviors>
+            </Rectangle>
+        </Border>
+        <Border Style="{DynamicResource BorderStyle}" Grid.Column="1">
+            <Canvas>
+                <Rectangle Style="{DynamicResource RectangleStyle}">
+                    <i:Interaction.Behaviors>
+                        <ei:TranslateZoomRotateBehavior/>
+                    </i:Interaction.Behaviors>
+                </Rectangle>
+            </Canvas>
+        </Border>
+        <Border Style="{DynamicResource BorderStyle}" Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Disabled">
+                <Canvas>
+                    <Rectangle Style="{DynamicResource RectangleStyle}">
+                        <i:Interaction.Behaviors>
+                            <ei:TranslateZoomRotateBehavior/>
+                        </i:Interaction.Behaviors>
+                    </Rectangle>
+                </Canvas>
+            </ScrollViewer>
+        </Border>
+        <Border Style="{DynamicResource BorderStyle}" Grid.Row="1" Grid.Column="1">
+            <ScrollContentPresenter>
+                <ScrollContentPresenter.Content>
+                    <Canvas>
+                        <Rectangle Style="{DynamicResource RectangleStyle}">
+                            <i:Interaction.Behaviors>
+                                <ei:TranslateZoomRotateBehavior/>
+                            </i:Interaction.Behaviors>
+                        </Rectangle>
+                    </Canvas>
+                </ScrollContentPresenter.Content>
+            </ScrollContentPresenter>
+        </Border>
     </Grid>
 </Window>
