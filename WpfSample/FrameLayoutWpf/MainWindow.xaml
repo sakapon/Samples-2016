@@ -10,12 +10,12 @@
         Title="Frame Layout" Height="600" Width="600">
     <Window.Resources>
         <Style x:Key="BorderStyle" TargetType="{x:Type Border}">
-            <Setter Property="BorderBrush" Value="#99006600"/>
-            <Setter Property="BorderThickness" Value="10"/>
+            <Setter Property="BorderBrush" Value="#99339900"/>
+            <Setter Property="BorderThickness" Value="15"/>
         </Style>
         <Style x:Key="RectangleStyle" TargetType="{x:Type Rectangle}">
-            <Setter Property="Width" Value="400"/>
-            <Setter Property="Height" Value="400"/>
+            <Setter Property="Width" Value="350"/>
+            <Setter Property="Height" Value="350"/>
             <Setter Property="Fill">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
