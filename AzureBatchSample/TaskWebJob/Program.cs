@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 
 namespace TaskWebJob
@@ -14,9 +12,10 @@ namespace TaskWebJob
         // AzureWebJobsDashboard and AzureWebJobsStorage
         static void Main()
         {
-            var host = new JobHost();
-            // The following code ensures that the WebJob will be running continuously
-            host.RunAndBlock();
+            using (var host = new JobHost())
+            {
+                host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTime)), new { startTime = DateTime.UtcNow });
+            }
         }
     }
 }
