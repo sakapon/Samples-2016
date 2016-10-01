@@ -39,13 +39,7 @@ namespace TaskWebJob
             blob.UploadText(start);
             logger.WriteLine(start);
 
-            while (true)
-            {
-                Thread.Sleep(20 * 1000);
-
-                var now = $"{DateTime.UtcNow:yyyyMMdd-HHmmss}";
-                logger.WriteLine(now);
-            }
+            Thread.Sleep(10 * 60 * 1000);
         }
 
         [NoAutomaticTrigger]
