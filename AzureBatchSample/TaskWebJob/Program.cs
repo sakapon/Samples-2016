@@ -14,7 +14,7 @@ namespace TaskWebJob
         {
             using (var host = new JobHost())
             {
-                host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTimes)), new { startTime = DateTime.UtcNow });
+                host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTimeAndSleep)), new { startTime = DateTime.UtcNow });
             }
         }
     }

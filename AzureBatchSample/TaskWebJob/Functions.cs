@@ -26,6 +26,29 @@ namespace TaskWebJob
         }
 
         [NoAutomaticTrigger]
+        public static void RecordTimeAndSleep(
+            DateTime startTime,
+            IBinder binder,
+            TextWriter logger)
+        {
+            var start = $"{startTime:yyyyMMdd-HHmmss}";
+
+            var blobAttribute = new BlobAttribute($"output/{start}");
+            var blob = binder.Bind<CloudBlockBlob>(blobAttribute);
+
+            blob.UploadText(start);
+            logger.WriteLine(start);
+
+            while (true)
+            {
+                Thread.Sleep(20 * 1000);
+
+                var now = $"{DateTime.UtcNow:yyyyMMdd-HHmmss}";
+                logger.WriteLine(now);
+            }
+        }
+
+        [NoAutomaticTrigger]
         public static void RecordTimes(
             DateTime startTime,
             IBinder binder,
