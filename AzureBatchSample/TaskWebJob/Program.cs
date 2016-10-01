@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Azure.WebJobs;
 
@@ -14,9 +15,38 @@ namespace TaskWebJob
         {
             using (var host = new JobHost())
             {
-                host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTimeAndSleep)), new { startTime = DateTime.UtcNow });
+                host.RunAndBlock();
             }
         }
+    }
+
+    public static class PrimeNumbersFunctions
+    {
+        public static void GetPrimeNumbers(
+            [QueueTrigger("primenumbers")] PrimeNumbersArgs args,
+            [Blob("primenumbers/{MinValue}-{MaxValue}", FileAccess.Write)] Stream outStream,
+            TextWriter logger)
+        {
+            logger.WriteLine($"{DateTime.UtcNow:MM/dd HH:mm:ss.fff}: Begin");
+
+            var result = PrimeNumbers.GetPrimeNumbers(args.MinValue, args.MaxValue);
+
+            using (var writer = new StreamWriter(outStream))
+            {
+                foreach (var p in result)
+                {
+                    writer.WriteLine(p);
+                }
+            }
+
+            logger.WriteLine($"{DateTime.UtcNow:MM/dd HH:mm:ss.fff}: End");
+        }
+    }
+
+    public class PrimeNumbersArgs
+    {
+        public long MinValue { get; set; }
+        public long MaxValue { get; set; }
     }
 
     public static class PrimeNumbers
