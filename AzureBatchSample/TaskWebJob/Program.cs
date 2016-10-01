@@ -37,7 +37,8 @@ namespace TaskWebJob
             {
                 foreach (var p in result)
                 {
-                    writer.WriteLine(p);
+                    writer.Write(p);
+                    writer.Write('\n');
                 }
             }
 
