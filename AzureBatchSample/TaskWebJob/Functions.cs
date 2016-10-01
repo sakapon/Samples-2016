@@ -11,22 +11,7 @@ namespace TaskWebJob
     public static class Functions
     {
         [NoAutomaticTrigger]
-        public static void RecordTime(
-            DateTime startTime,
-            IBinder binder,
-            TextWriter logger)
-        {
-            var dt = $"{startTime:yyyyMMdd-HHmmss}";
-
-            var blobAttribute = new BlobAttribute($"output/{dt}");
-            var blob = binder.Bind<CloudBlockBlob>(blobAttribute);
-            blob.UploadText(dt);
-
-            logger.WriteLine(dt);
-        }
-
-        [NoAutomaticTrigger]
-        public static void RecordTimeAndSleep(
+        public static void RecordTimeTest(
             DateTime startTime,
             IBinder binder,
             TextWriter logger)
@@ -39,28 +24,28 @@ namespace TaskWebJob
             blob.UploadText(start);
             logger.WriteLine(start);
 
+            //RecordTime(start, blob, logger);
+            //RecordTimeAndSleep(start, blob, logger);
+            RecordTimes(start, blob, logger);
+        }
+
+        public static void RecordTime(string startString, CloudBlockBlob blob, TextWriter logger)
+        {
+        }
+
+        public static void RecordTimeAndSleep(string startString, CloudBlockBlob blob, TextWriter logger)
+        {
             Thread.Sleep(10 * 60 * 1000);
         }
 
-        [NoAutomaticTrigger]
-        public static void RecordTimes(
-            DateTime startTime,
-            IBinder binder,
-            TextWriter logger)
+        public static void RecordTimes(string startString, CloudBlockBlob blob, TextWriter logger)
         {
-            var start = $"{startTime:yyyyMMdd-HHmmss}";
-
-            var blobAttribute = new BlobAttribute($"output/{start}");
-            var blob = binder.Bind<CloudBlockBlob>(blobAttribute);
-
-            logger.WriteLine(start);
-
             while (true)
             {
                 Thread.Sleep(20 * 1000);
 
                 var now = $"{DateTime.UtcNow:yyyyMMdd-HHmmss}";
-                blob.UploadText($"{start}\r\n{now}");
+                blob.UploadText($"{startString}\r\n{now}");
 
                 logger.WriteLine(now);
             }
