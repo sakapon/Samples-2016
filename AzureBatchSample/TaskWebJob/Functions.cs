@@ -10,13 +10,26 @@ namespace TaskWebJob
 {
     public static class Functions
     {
+        public static void RecordTimeQueueTest(
+            [QueueTrigger("test")] object args,
+            IBinder binder,
+            TextWriter logger)
+        {
+            RecordTimeTest(binder, logger);
+        }
+
         [NoAutomaticTrigger]
-        public static void RecordTimeTest(
+        public static void RecordTimeManualTest(
             DateTime startTime,
             IBinder binder,
             TextWriter logger)
         {
-            var start = $"{startTime:yyyyMMdd-HHmmss}";
+            RecordTimeTest(binder, logger);
+        }
+
+        public static void RecordTimeTest(IBinder binder, TextWriter logger)
+        {
+            var start = $"{DateTime.UtcNow:yyyyMMdd-HHmmss}";
 
             var blobAttribute = new BlobAttribute($"output/{start}");
             var blob = binder.Bind<CloudBlockBlob>(blobAttribute);
