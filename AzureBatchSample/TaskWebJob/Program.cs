@@ -22,6 +22,8 @@ namespace TaskWebJob
 
     public static class PrimeNumbersFunctions
     {
+        // Add the following message to the queue "primenumbers".
+        // { "MinValue": 1000, "MaxValue": 1100 }
         public static void GetPrimeNumbers(
             [QueueTrigger("primenumbers")] PrimeNumbersArgs args,
             [Blob("primenumbers/{MinValue}-{MaxValue}", FileAccess.Write)] Stream outStream,
