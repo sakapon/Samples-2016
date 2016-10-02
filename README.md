@@ -13,3 +13,4 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [ExpandoObject を使ったデータ バインディング](https://sakapon.wordpress.com/2016/07/04/databinding-expandoobject/)
 - [プロパティ変更をタイマーで同期して通知する](https://sakapon.wordpress.com/2016/07/05/databinding-dynamic-sync/)
 - [XAML マークアップ拡張を自作する](https://sakapon.wordpress.com/2016/07/06/xaml-markup-extension/)
+- [WPF で外枠にはみ出さないようにする](https://sakapon.wordpress.com/2016/10/02/frame-layout/)
