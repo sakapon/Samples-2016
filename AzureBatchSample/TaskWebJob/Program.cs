@@ -17,26 +17,26 @@ namespace TaskWebJob
             using (var host = new JobHost())
             {
                 //host.RunAndBlock();
-                host.Call(typeof(PrimeNumbersFunctions).GetMethod(nameof(PrimeNumbersFunctions.GetPrimeNumbersManual)));
-                //host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTimeManualTest)), new { startTime = DateTime.UtcNow });
+                host.Call(typeof(PrimeNumbers).GetMethod(nameof(PrimeNumbers.Create_Manual)));
+                //host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTime_Manual)), new { startTime = DateTime.UtcNow });
             }
         }
     }
 
-    public static class PrimeNumbersFunctions
+    public static class PrimeNumbers
     {
         // Add the following message to the queue "primenumbers".
         // { "MinValue": 1000, "MaxValue": 1100 }
-        public static void GetPrimeNumbersQueue(
+        public static void Create_Queue(
             [QueueTrigger("primenumbers")] PrimeNumbersArgs args,
             [Blob("primenumbers/{MinValue}-{MaxValue}", FileAccess.Write)] Stream outStream,
             TextWriter logger)
         {
-            GetPrimeNumbers(args, outStream, logger);
+            CreatePrimeNumbers(args, outStream, logger);
         }
 
         [NoAutomaticTrigger]
-        public static void GetPrimeNumbersManual(
+        public static void Create_Manual(
             IBinder binder,
             TextWriter logger)
         {
@@ -49,14 +49,14 @@ namespace TaskWebJob
             var blobAttribute = new BlobAttribute($"primenumbers/{args.MinValue}-{args.MaxValue}", FileAccess.Write);
             var outStream = binder.Bind<Stream>(blobAttribute);
 
-            GetPrimeNumbers(args, outStream, logger);
+            CreatePrimeNumbers(args, outStream, logger);
         }
 
-        public static void GetPrimeNumbers(PrimeNumbersArgs args, Stream outStream, TextWriter logger)
+        public static void CreatePrimeNumbers(PrimeNumbersArgs args, Stream outStream, TextWriter logger)
         {
             logger.WriteLine($"{DateTime.UtcNow:MM/dd HH:mm:ss.fff}: Begin");
 
-            var result = PrimeNumbers.GetPrimeNumbers(args.MinValue, args.MaxValue);
+            var result = PrimeNumbersUtility.GetPrimeNumbers(args.MinValue, args.MaxValue);
 
             using (var writer = new StreamWriter(outStream))
             {
@@ -77,7 +77,7 @@ namespace TaskWebJob
         public long MaxValue { get; set; }
     }
 
-    public static class PrimeNumbers
+    public static class PrimeNumbersUtility
     {
         public static IEnumerable<long> GetPrimeNumbers(long minValue, long maxValue) =>
             new[]

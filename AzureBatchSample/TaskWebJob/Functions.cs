@@ -10,24 +10,24 @@ namespace TaskWebJob
 {
     public static class Functions
     {
-        public static void RecordTimeQueueTest(
+        public static void RecordTime_Queue(
             [QueueTrigger("test")] object args,
             IBinder binder,
             TextWriter logger)
         {
-            RecordTimeTest(binder, logger);
+            RecordTime(binder, logger);
         }
 
         [NoAutomaticTrigger]
-        public static void RecordTimeManualTest(
+        public static void RecordTime_Manual(
             DateTime startTime,
             IBinder binder,
             TextWriter logger)
         {
-            RecordTimeTest(binder, logger);
+            RecordTime(binder, logger);
         }
 
-        public static void RecordTimeTest(IBinder binder, TextWriter logger)
+        public static void RecordTime(IBinder binder, TextWriter logger)
         {
             var start = $"{DateTime.UtcNow:yyyyMMdd-HHmmss}";
 
@@ -37,13 +37,8 @@ namespace TaskWebJob
             blob.UploadText(start);
             logger.WriteLine(start);
 
-            //RecordTime(start, blob, logger);
             //RecordTimeAndSleep(start, blob, logger);
             RecordTimes(start, blob, logger);
-        }
-
-        public static void RecordTime(string startString, CloudBlockBlob blob, TextWriter logger)
-        {
         }
 
         public static void RecordTimeAndSleep(string startString, CloudBlockBlob blob, TextWriter logger)
