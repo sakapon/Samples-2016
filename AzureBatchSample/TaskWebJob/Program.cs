@@ -18,6 +18,7 @@ namespace TaskWebJob
             {
                 //host.RunAndBlock();
                 host.Call(typeof(PrimeNumbersFunctions).GetMethod(nameof(PrimeNumbersFunctions.GetPrimeNumbersManual)));
+                //host.Call(typeof(Functions).GetMethod(nameof(Functions.RecordTimeManualTest)), new { startTime = DateTime.UtcNow });
             }
         }
     }
