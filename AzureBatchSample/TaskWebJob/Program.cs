@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using Microsoft.Azure.WebJobs;
@@ -15,7 +16,8 @@ namespace TaskWebJob
         {
             using (var host = new JobHost())
             {
-                host.RunAndBlock();
+                //host.RunAndBlock();
+                host.Call(typeof(PrimeNumbersFunctions).GetMethod(nameof(PrimeNumbersFunctions.GetPrimeNumbersManual)));
             }
         }
     }
@@ -24,10 +26,32 @@ namespace TaskWebJob
     {
         // Add the following message to the queue "primenumbers".
         // { "MinValue": 1000, "MaxValue": 1100 }
-        public static void GetPrimeNumbers(
+        public static void GetPrimeNumbersQueue(
             [QueueTrigger("primenumbers")] PrimeNumbersArgs args,
             [Blob("primenumbers/{MinValue}-{MaxValue}", FileAccess.Write)] Stream outStream,
             TextWriter logger)
+        {
+            GetPrimeNumbers(args, outStream, logger);
+        }
+
+        [NoAutomaticTrigger]
+        public static void GetPrimeNumbersManual(
+            IBinder binder,
+            TextWriter logger)
+        {
+            var args = new PrimeNumbersArgs
+            {
+                MinValue = int.Parse(ConfigurationManager.AppSettings["MinValue"]),
+                MaxValue = int.Parse(ConfigurationManager.AppSettings["MaxValue"]),
+            };
+
+            var blobAttribute = new BlobAttribute($"primenumbers/{args.MinValue}-{args.MaxValue}", FileAccess.Write);
+            var outStream = binder.Bind<Stream>(blobAttribute);
+
+            GetPrimeNumbers(args, outStream, logger);
+        }
+
+        public static void GetPrimeNumbers(PrimeNumbersArgs args, Stream outStream, TextWriter logger)
         {
             logger.WriteLine($"{DateTime.UtcNow:MM/dd HH:mm:ss.fff}: Begin");
 
