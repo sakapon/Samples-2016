@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Microsoft.Azure.WebJobs;
 
 namespace TaskWebJob
@@ -56,12 +57,14 @@ namespace TaskWebJob
         {
             logger.WriteLine($"{DateTime.UtcNow:MM/dd HH:mm:ss.fff}: Begin");
 
+            var sleepLevel = int.Parse(ConfigurationManager.AppSettings["SleepLevel"]);
             var result = PrimeNumbersUtility.GetPrimeNumbers(args.MinValue, args.MaxValue);
 
             using (var writer = new StreamWriter(outStream))
             {
                 foreach (var p in result)
                 {
+                    if (sleepLevel != 0 && p % sleepLevel == 1) Thread.Sleep(1);
                     writer.Write(p);
                     writer.Write('\n');
                 }
