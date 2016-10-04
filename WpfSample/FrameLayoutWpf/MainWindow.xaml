@@ -43,7 +43,7 @@
             </Rectangle>
         </Border>
         <Border Style="{DynamicResource BorderStyle}" Grid.Column="1">
-            <Canvas>
+            <Canvas ClipToBounds="True">
                 <Rectangle Style="{DynamicResource RectangleStyle}">
                     <i:Interaction.Behaviors>
                         <ei:TranslateZoomRotateBehavior/>
