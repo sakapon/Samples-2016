@@ -43,8 +43,8 @@ namespace TaskWebJob
         {
             var args = new PrimeNumbersArgs
             {
-                MinValue = int.Parse(ConfigurationManager.AppSettings["MinValue"]),
-                MaxValue = int.Parse(ConfigurationManager.AppSettings["MaxValue"]),
+                MinValue = long.Parse(ConfigurationManager.AppSettings["MinValue"]),
+                MaxValue = long.Parse(ConfigurationManager.AppSettings["MaxValue"]),
             };
 
             var blobAttribute = new BlobAttribute($"primenumbers/{args.MinValue}-{args.MaxValue}", FileAccess.Write);
