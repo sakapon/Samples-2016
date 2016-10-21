@@ -21,20 +21,19 @@ namespace EchoBotApi
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                // calculate something for us to return
-                int length = (activity.Text ?? string.Empty).Length;
+                var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+
+                var text = $"You sent \"{activity.Text ?? "{null}"}\".";
 
                 // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
+                var reply = activity.CreateReply(text);
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
             {
                 HandleSystemMessage(activity);
             }
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         private Activity HandleSystemMessage(Activity message)
