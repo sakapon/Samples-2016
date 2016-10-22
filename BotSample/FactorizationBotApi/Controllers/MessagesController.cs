@@ -48,7 +48,6 @@ namespace FactorizationBotApi
         static async Task Reply(ConnectorClient connector, Activity activity, string message)
         {
             var reply = activity.CreateReply(message);
-            reply.TextFormat = "plain";
             await connector.Conversations.ReplyToActivityAsync(reply);
         }
 
