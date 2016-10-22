@@ -41,8 +41,8 @@ namespace FactorizationBotApi
             int i;
             if (!int.TryParse(text, out i)) return "Send an integer.";
 
-            var factorized = MathHelper.Factorize(i);
-            return $"{i} = {string.Join(" * ", factorized)}";
+            var factorized = MathHelper.Factorize2(i);
+            return $"{i} = {string.Join(" · ", factorized.Select(p => p.Value == 1 ? $"{p.Key}" : $"{p.Key}^{p.Value}"))}";
         }
 
         static async Task Reply(ConnectorClient connector, Activity activity, string message)
@@ -98,6 +98,28 @@ namespace FactorizationBotApi
 
                     if (x == 1)
                         return l.ToArray();
+                }
+            }
+        }
+
+        public static Dictionary<int, int> Factorize2(int x)
+        {
+            if (x <= 1) return new Dictionary<int, int> { { x, 1 } };
+
+            var d = new Dictionary<int, int>();
+
+            for (var i = 2; ; i++)
+            {
+                while (x % i == 0)
+                {
+                    if (d.ContainsKey(i))
+                        d[i]++;
+                    else
+                        d[i] = 1;
+                    x /= i;
+
+                    if (x == 1)
+                        return d;
                 }
             }
         }
