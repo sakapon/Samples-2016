@@ -41,8 +41,9 @@ namespace FactorizationBotApi
             int i;
             if (!int.TryParse(text, out i)) return "Send an integer.";
 
-            var factorized = MathHelper.Factorize2(i);
-            return $"{i} = {string.Join(" · ", factorized.Select(p => p.Value == 1 ? $"{p.Key}" : $"{p.Key}^{p.Value}"))}";
+            var factorized = MathHelper.Factorize2(Math.Abs(i));
+            var factorizedString = string.Join(" · ", factorized.Select(p => $"{p.Key}{(p.Value == 1 ? "" : $"^{p.Value}")}"));
+            return $"{i} = {(i >= 0 ? "" : "-")}{factorizedString}";
         }
 
         static async Task Reply(ConnectorClient connector, Activity activity, string message)
