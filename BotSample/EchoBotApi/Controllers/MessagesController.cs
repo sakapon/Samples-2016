@@ -19,24 +19,26 @@ namespace EchoBotApi
         /// </summary>
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
-            if (activity.Type == ActivityTypes.Message)
-            {
-                var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+            if (activity.Type != ActivityTypes.Message)
+                return Request.CreateResponse(HttpStatusCode.OK);
+            if (string.IsNullOrWhiteSpace(activity.Text))
+                return Request.CreateResponse(HttpStatusCode.OK);
 
-                var text = $"You sent \"{activity.Text ?? "{null}"}\".";
+            var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 
-                // return our reply to the user
-                var reply = activity.CreateReply(text);
-                await connector.Conversations.ReplyToActivityAsync(reply);
-            }
-            else
-            {
-                HandleSystemMessage(activity);
-            }
+            var echoMessage = $"You sent \"{activity.Text}\".";
+            await Reply(connector, activity, echoMessage);
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        private Activity HandleSystemMessage(Activity message)
+        static async Task Reply(ConnectorClient connector, Activity activity, string message)
+        {
+            var reply = activity.CreateReply(message);
+            await connector.Conversations.ReplyToActivityAsync(reply);
+        }
+
+        Activity HandleSystemMessage(Activity message)
         {
             if (message.Type == ActivityTypes.DeleteUserData)
             {
