@@ -30,11 +30,13 @@ namespace EmotionBotApi
                 return Request.CreateResponse(HttpStatusCode.OK);
 
             var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+            // In Slack, URLs are qualified by '<' and '>'.
+            var text = activity.Text.Trim('<', '>');
 
-            var echoMessage = $"You sent this picture.  \n![]({activity.Text})";
+            var echoMessage = $"You sent this picture.  \n![]({text})";
             await Reply(connector, activity, echoMessage);
 
-            var mainMessage = await GetEmotionsAsync(activity.Text);
+            var mainMessage = await GetEmotionsAsync(text);
             await Reply(connector, activity, mainMessage);
 
             return Request.CreateResponse(HttpStatusCode.OK);
