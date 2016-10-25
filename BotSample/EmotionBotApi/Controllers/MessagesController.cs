@@ -26,7 +26,7 @@ namespace EmotionBotApi
 
             var connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 
-            var echoMessage = $"You sent \"{activity.Text}\".";
+            var echoMessage = $"You sent this picture.  \n![]({activity.Text})";
             await Reply(connector, activity, echoMessage);
 
             return Request.CreateResponse(HttpStatusCode.OK);
