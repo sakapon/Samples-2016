@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
+using Microsoft.ProjectOxford.Emotion;
+using Microsoft.ProjectOxford.Emotion.Contract;
 using Newtonsoft.Json;
 
 namespace EmotionBotApi
@@ -13,6 +16,8 @@ namespace EmotionBotApi
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        static string SubscriptionKey { get; } = ConfigurationManager.AppSettings["SubscriptionKey"];
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -29,7 +34,37 @@ namespace EmotionBotApi
             var echoMessage = $"You sent this picture.  \n![]({activity.Text})";
             await Reply(connector, activity, echoMessage);
 
+            var mainMessage = await GetEmotionsAsync(activity.Text);
+            await Reply(connector, activity, mainMessage);
+
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        static async Task<string> GetEmotionsAsync(string text)
+        {
+            if (!text.StartsWith("http", StringComparison.InvariantCultureIgnoreCase)) return "Send the URL of a picture.";
+
+            var emotions = await RecognizeEmotionsAsync(text);
+            if (emotions == null) return "The emotions recognition failed.";
+            if (emotions.Length == 0) return "Nobody recognized.";
+
+            var scores = emotions[0].Scores.ToRankedList().ToArray();
+            var topScore = scores[0];
+            return $"{topScore.Key}: {topScore.Value}";
+        }
+
+        static async Task<Emotion[]> RecognizeEmotionsAsync(string imageUrl)
+        {
+            var client = new EmotionServiceClient(SubscriptionKey);
+
+            try
+            {
+                return await client.RecognizeAsync(imageUrl);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         static async Task Reply(ConnectorClient connector, Activity activity, string message)
