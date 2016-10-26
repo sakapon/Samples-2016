@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoBotApi", "EchoBotApi\Ec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactorizationBotApi", "FactorizationBotApi\FactorizationBotApi.csproj", "{40A45352-FA36-44B7-9700-A01DBFD50D6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmotionBotApi", "EmotionBotApi\EmotionBotApi.csproj", "{80B89757-11FE-4EE9-B753-1B6877C43BE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{40A45352-FA36-44B7-9700-A01DBFD50D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40A45352-FA36-44B7-9700-A01DBFD50D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40A45352-FA36-44B7-9700-A01DBFD50D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B89757-11FE-4EE9-B753-1B6877C43BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B89757-11FE-4EE9-B753-1B6877C43BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B89757-11FE-4EE9-B753-1B6877C43BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B89757-11FE-4EE9-B753-1B6877C43BE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
