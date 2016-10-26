@@ -44,15 +44,16 @@ namespace EmotionBotApi
 
         static async Task<string> GetEmotionsAsync(string text)
         {
-            if (!text.StartsWith("http", StringComparison.InvariantCultureIgnoreCase)) return "Send the URL of a picture.";
+            if (!Uri.IsWellFormedUriString(text, UriKind.Absolute)) return "Send the URL of a picture.";
 
             var emotions = await RecognizeEmotionsAsync(text);
             if (emotions == null) return "The emotions recognition failed.";
             if (emotions.Length == 0) return "Nobody recognized.";
 
-            var scores = emotions[0].Scores.ToRankedList().ToArray();
-            var topScore = scores[0];
-            return $"{topScore.Key}: {topScore.Value}";
+            var topScore = emotions[0].Scores
+                .ToRankedList()
+                .First();
+            return $"{topScore.Key}: {topScore.Value:P1}";
         }
 
         static async Task<Emotion[]> RecognizeEmotionsAsync(string imageUrl)
