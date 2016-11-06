@@ -48,7 +48,7 @@ namespace EmotionBotApi
 
             var emotions = await RecognizeEmotionsAsync(text);
             if (emotions == null) return "The emotions recognition failed.";
-            if (emotions.Length == 0) return "Nobody recognized.";
+            if (emotions.Length == 0) return "Nobody is recognized.";
 
             var topScore = emotions[0].Scores
                 .ToRankedList()
