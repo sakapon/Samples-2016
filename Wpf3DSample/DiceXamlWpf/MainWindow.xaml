@@ -24,5 +24,106 @@
             <TextBlock x:Name="Face5" Style="{DynamicResource FaceStyle}" Text="5" Background="#FF29D214"/>
             <TextBlock x:Name="Face6" Style="{DynamicResource FaceStyle}" Text="6" Background="#FF4444BB"/>
         </Grid>
+        <Viewport3D>
+            <Viewport3D.Camera>
+                <PerspectiveCamera Position="0,0,20"/>
+            </Viewport3D.Camera>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <AmbientLight/>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <Model3DGroup>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <VisualBrush Visual="{Binding ElementName=Face1}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="-1,-1,1 1,-1,1 1,1,1 -1,1,1" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,1 1,1 1,0 0,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <VisualBrush Visual="{Binding ElementName=Face2}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="-1,-1,-1 1,-1,-1 1,-1,1 -1,-1,1" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,1 1,1 1,0 0,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <VisualBrush Visual="{Binding ElementName=Face3}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="1,-1,-1 1,1,-1 1,1,1 1,-1,1" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,1 1,1 1,0 0,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <VisualBrush Visual="{Binding ElementName=Face5}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="1,1,-1 -1,1,-1 -1,1,1 1,1,1" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,1 1,1 1,0 0,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <VisualBrush Visual="{Binding ElementName=Face4}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="-1,1,-1 -1,-1,-1 -1,-1,1 -1,1,1" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,1 1,1 1,0 0,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <VisualBrush Visual="{Binding ElementName=Face6}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="1,-1,-1 -1,-1,-1 -1,1,-1 1,1,-1" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,1 1,1 1,0 0,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                    </Model3DGroup>
+                </ModelVisual3D.Content>
+                <ModelVisual3D.Transform>
+                    <Transform3DGroup>
+                        <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
+                        <ScaleTransform3D ScaleZ="1" ScaleY="1" ScaleX="1"/>
+                        <RotateTransform3D d:EulerAngles="-390.096,-34.711,-39.756">
+                            <RotateTransform3D.Rotation>
+                                <AxisAngleRotation3D Axis="0.611,0.344,0.713" Angle="294.384"/>
+                            </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+                        <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
+                        <TranslateTransform3D OffsetZ="2" OffsetX="5" OffsetY="0"/>
+                    </Transform3DGroup>
+                </ModelVisual3D.Transform>
+            </ModelVisual3D>
+        </Viewport3D>
     </Grid>
 </Window>
