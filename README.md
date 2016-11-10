@@ -15,3 +15,4 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [XAML マークアップ拡張を自作する](https://sakapon.wordpress.com/2016/07/06/xaml-markup-extension/)
 - [WPF で外枠にはみ出さないようにする](https://sakapon.wordpress.com/2016/10/02/frame-layout/)
 - [Azure Web ジョブでバッチを実行する](https://sakapon.wordpress.com/2016/10/03/azure-webjobs-batch/)
+- [Bot Framework で Slack の bot を構成する](https://sakapon.wordpress.com/2016/11/05/bot-framework-slack/)
