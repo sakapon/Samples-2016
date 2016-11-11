@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceXamlWpf2", "DiceXamlWpf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceCodeWpf", "DiceCodeWpf\DiceCodeWpf.csproj", "{9E8FB7F4-967D-418B-B420-858B70D65E03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceRotationWpf", "DiceRotationWpf\DiceRotationWpf.csproj", "{BD5717E2-3AC7-43F2-A286-D0784CE569A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9E8FB7F4-967D-418B-B420-858B70D65E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8FB7F4-967D-418B-B420-858B70D65E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8FB7F4-967D-418B-B420-858B70D65E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD5717E2-3AC7-43F2-A286-D0784CE569A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD5717E2-3AC7-43F2-A286-D0784CE569A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD5717E2-3AC7-43F2-A286-D0784CE569A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD5717E2-3AC7-43F2-A286-D0784CE569A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
