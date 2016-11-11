@@ -5,8 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiceCodeWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Dice (Code)" Height="600" Width="600">
+    <Window.Resources>
+        <Style x:Key="FaceStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FF333333">
+        <Grid Visibility="Hidden">
+            <TextBlock x:Name="Face1" Style="{DynamicResource FaceStyle}" Text="1" Background="#FF222222"/>
+            <TextBlock x:Name="Face2" Style="{DynamicResource FaceStyle}" Text="2" Background="#FFDF2C2C"/>
+            <TextBlock x:Name="Face3" Style="{DynamicResource FaceStyle}" Text="3" Background="#FFEE9319"/>
+            <TextBlock x:Name="Face4" Style="{DynamicResource FaceStyle}" Text="4" Background="#FFE3E60A"/>
+            <TextBlock x:Name="Face5" Style="{DynamicResource FaceStyle}" Text="5" Background="#FF29D214"/>
+            <TextBlock x:Name="Face6" Style="{DynamicResource FaceStyle}" Text="6" Background="#FF4444BB"/>
+        </Grid>
+        <Viewport3D x:Name="TheViewport">
+            <Viewport3D.Camera>
+                <PerspectiveCamera Position="0,0,10"/>
+            </Viewport3D.Camera>
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+                    <AmbientLight/>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+        </Viewport3D>
     </Grid>
 </Window>
