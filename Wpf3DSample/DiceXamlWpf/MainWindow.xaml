@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DiceXamlWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600">
+        Title="Dice (XAML)" Height="600" Width="600">
     <Window.Resources>
         <Style x:Key="FaceStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="White"/>
@@ -34,6 +34,19 @@
                 </ModelVisual3D.Content>
             </ModelVisual3D>
             <ModelVisual3D>
+                <ModelVisual3D.Transform>
+                    <Transform3DGroup>
+                        <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
+                        <ScaleTransform3D ScaleZ="1" ScaleY="1" ScaleX="1"/>
+                        <RotateTransform3D>
+                            <RotateTransform3D.Rotation>
+                                <AxisAngleRotation3D Axis="0.6,0.3,0.7" Angle="-70"/>
+                            </RotateTransform3D.Rotation>
+                        </RotateTransform3D>
+                        <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
+                        <TranslateTransform3D OffsetZ="-2" OffsetX="2" OffsetY="1"/>
+                    </Transform3DGroup>
+                </ModelVisual3D.Transform>
                 <ModelVisual3D.Content>
                     <Model3DGroup>
                         <GeometryModel3D>
@@ -110,19 +123,6 @@
                         </GeometryModel3D>
                     </Model3DGroup>
                 </ModelVisual3D.Content>
-                <ModelVisual3D.Transform>
-                    <Transform3DGroup>
-                        <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
-                        <ScaleTransform3D ScaleZ="1" ScaleY="1" ScaleX="1"/>
-                        <RotateTransform3D>
-                            <RotateTransform3D.Rotation>
-                                <AxisAngleRotation3D Axis="0.6,0.3,0.7" Angle="-70"/>
-                            </RotateTransform3D.Rotation>
-                        </RotateTransform3D>
-                        <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
-                        <TranslateTransform3D OffsetZ="-2" OffsetX="2" OffsetY="1"/>
-                    </Transform3DGroup>
-                </ModelVisual3D.Transform>
             </ModelVisual3D>
         </Viewport3D>
     </Grid>
