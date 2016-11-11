@@ -78,24 +78,5 @@ namespace DiceCodeWpf
 
             return geometry;
         }
-
-        public static RotateTransform3D CreateAngleRotateTransformX(double angle)
-        {
-            return new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(1, 0, 0), angle));
-        }
-
-        public static void Rotate(this MatrixTransform3D transform, Vector3D axis, double angle)
-        {
-            var matrix = transform.Matrix;
-            matrix.Rotate(new Quaternion(axis, angle));
-            transform.Matrix = matrix;
-        }
-
-        public static void RotateAt(this MatrixTransform3D transform, Vector3D axis, double angle, Point3D center)
-        {
-            var matrix = transform.Matrix;
-            matrix.RotateAt(new Quaternion(axis, angle), center);
-            transform.Matrix = matrix;
-        }
     }
 }

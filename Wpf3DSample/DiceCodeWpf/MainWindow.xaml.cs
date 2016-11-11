@@ -21,9 +21,6 @@ namespace DiceCodeWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        MatrixTransform3D matrixTransform = new MatrixTransform3D();
-        TranslateTransform3D translateTransform = new TranslateTransform3D();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -47,8 +44,8 @@ namespace DiceCodeWpf
             var transform = new Transform3DGroup();
             transform.Children.Add(new TranslateTransform3D(new Vector3D(-0.5, -0.5, -0.5)));
             transform.Children.Add(new ScaleTransform3D(new Vector3D(2, 2, 2)));
-            transform.Children.Add(matrixTransform);
-            transform.Children.Add(translateTransform);
+            transform.Children.Add(new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(0.6, 0.3, 0.7), -70)));
+            transform.Children.Add(new TranslateTransform3D(new Vector3D(-2, 1, 0)));
             visual.Transform = transform;
 
             return visual;
