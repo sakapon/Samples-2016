@@ -12,7 +12,7 @@
             <Setter Property="Width" Value="30"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontSize" Value="20"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -26,7 +26,7 @@
         </Grid>
         <Viewport3D>
             <Viewport3D.Camera>
-                <PerspectiveCamera Position="0,0,20"/>
+                <PerspectiveCamera Position="0,0,10"/>
             </Viewport3D.Camera>
             <ModelVisual3D>
                 <ModelVisual3D.Content>
@@ -114,13 +114,13 @@
                     <Transform3DGroup>
                         <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
                         <ScaleTransform3D ScaleZ="1" ScaleY="1" ScaleX="1"/>
-                        <RotateTransform3D d:EulerAngles="-390.096,-34.711,-39.756">
+                        <RotateTransform3D>
                             <RotateTransform3D.Rotation>
-                                <AxisAngleRotation3D Axis="0.611,0.344,0.713" Angle="294.384"/>
+                                <AxisAngleRotation3D Axis="0.6,0.3,0.7" Angle="-70"/>
                             </RotateTransform3D.Rotation>
                         </RotateTransform3D>
                         <TranslateTransform3D OffsetZ="0" OffsetX="0" OffsetY="0"/>
-                        <TranslateTransform3D OffsetZ="2" OffsetX="5" OffsetY="0"/>
+                        <TranslateTransform3D OffsetZ="-2" OffsetX="2" OffsetY="1"/>
                     </Transform3DGroup>
                 </ModelVisual3D.Transform>
             </ModelVisual3D>
