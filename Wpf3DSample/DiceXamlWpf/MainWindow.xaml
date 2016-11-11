@@ -15,7 +15,7 @@
             <Setter Property="FontSize" Value="20"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Background="#FF333333">
         <Grid Visibility="Hidden">
             <TextBlock x:Name="Face1" Style="{DynamicResource FaceStyle}" Text="1" Background="#FF222222"/>
             <TextBlock x:Name="Face2" Style="{DynamicResource FaceStyle}" Text="2" Background="#FFDF2C2C"/>
