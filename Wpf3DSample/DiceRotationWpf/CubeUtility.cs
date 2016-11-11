@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
@@ -19,6 +20,28 @@ namespace DiceRotationWpf
         public static GeometryModel3D CreateSquareModel(KeyValuePair<string, Visual> squareInfo)
         {
             var brush = new VisualBrush(squareInfo.Value);
+            var material = new DiffuseMaterial(brush);
+
+            return new GeometryModel3D
+            {
+                Geometry = CreateSquareGeometry(squareInfo.Key),
+                Material = material,
+                BackMaterial = material,
+            };
+        }
+
+        public static Model3DGroup CreateCubeModel(ICollection<KeyValuePair<string, string>> squareInfoes)
+        {
+            return new Model3DGroup
+            {
+                Children = new Model3DCollection(squareInfoes.Select(CreateSquareModel)),
+            };
+        }
+
+        public static GeometryModel3D CreateSquareModel(KeyValuePair<string, string> squareInfo)
+        {
+            var brush = new VisualBrush();
+            BindingOperations.SetBinding(brush, VisualBrush.VisualProperty, new Binding { ElementName = squareInfo.Value });
             var material = new DiffuseMaterial(brush);
 
             return new GeometryModel3D
