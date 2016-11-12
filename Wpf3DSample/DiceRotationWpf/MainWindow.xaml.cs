@@ -42,7 +42,11 @@ namespace DiceRotationWpf
             var faces = new Dictionary<string, string>
             {
                 { "-1,1,1 -1,-1,1 1,-1,1 1,1,1", "Face1" },
-                { "-1,-1,1 -1,-1,-1 1,-1,-1 1,-1,1", "Face2" },
+                { "-1,1,1 -1,1,-1 -1,-1,-1 -1,-1,1", "Face2" },
+                { "-1,-1,1 -1,-1,-1 1,-1,-1 1,-1,1", "Face3" },
+                { "1,1,1 1,1,-1 -1,1,-1 -1,1,1", "Face4" },
+                { "1,-1,1 1,-1,-1 1,1,-1 1,1,1", "Face5" },
+                { "-1,-1,-1 -1,1,-1 1,1,-1 1,-1,-1", "Face6" },
             };
             CubeModel = CubeUtility.CreateCubeModel(faces);
         }
