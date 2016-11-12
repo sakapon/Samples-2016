@@ -15,6 +15,9 @@
             <Setter Property="FontSize" Value="20"/>
         </Style>
     </Window.Resources>
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Grid Background="#FF333333">
         <Grid Visibility="Hidden">
             <TextBlock x:Name="Face1" Style="{DynamicResource FaceStyle}" Text="1" Background="#FF222222"/>
@@ -33,7 +36,7 @@
                     <AmbientLight/>
                 </ModelVisual3D.Content>
             </ModelVisual3D>
-            <ModelVisual3D Content="{Binding CubeModel, ElementName=window}" Transform="{Binding CubeTransform, ElementName=window}"/>
+            <ModelVisual3D Content="{Binding CubeModel, ElementName=window}" Transform="{Binding CubeTransform}"/>
         </Viewport3D>
     </Grid>
 </Window>
