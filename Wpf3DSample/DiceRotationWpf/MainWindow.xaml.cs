@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -30,10 +31,13 @@ namespace DiceRotationWpf
         public static readonly DependencyProperty CubeModelProperty =
             DependencyProperty.Register(nameof(CubeModel), typeof(Model3D), typeof(MainWindow), new PropertyMetadata(null));
 
+        MainViewModel ViewModel;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            ViewModel = (MainViewModel)DataContext;
             InitializeCube();
         }
 
@@ -49,6 +53,24 @@ namespace DiceRotationWpf
                 { "-1,-1,-1 -1,1,-1 1,1,-1 1,-1,-1", "Face6" },
             };
             CubeModel = CubeUtility.CreateCubeModel(faces);
+        }
+
+        static readonly Dictionary<string, Vector3D> Axes = new Dictionary<string, Vector3D>
+        {
+            { "-x", Vector3D.Parse("-1,0,0") },
+            { "+x", Vector3D.Parse("1,0,0") },
+            { "-y", Vector3D.Parse("0,-1,0") },
+            { "+y", Vector3D.Parse("0,1,0") },
+            { "-z", Vector3D.Parse("0,0,-1") },
+            { "+z", Vector3D.Parse("0,0,1") },
+        };
+
+        void Rotate_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (RepeatButton)sender;
+            var command = (string)button.CommandParameter;
+
+            ViewModel.RotateDelta(Axes[command]);
         }
     }
 }
