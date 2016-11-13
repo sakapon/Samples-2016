@@ -32,14 +32,16 @@ namespace DiceCodeWpf
         {
             var visual = new ModelVisual3D();
 
-            var cubeModel = CubeUtility.CreateCubeModel();
-            CubeUtility.SetMaterialToCube(cubeModel, 0, Face1);
-            CubeUtility.SetMaterialToCube(cubeModel, 1, Face2);
-            CubeUtility.SetMaterialToCube(cubeModel, 2, Face3);
-            CubeUtility.SetMaterialToCube(cubeModel, 3, Face4);
-            CubeUtility.SetMaterialToCube(cubeModel, 4, Face5);
-            CubeUtility.SetMaterialToCube(cubeModel, 5, Face6);
-            visual.Content = cubeModel;
+            var faces = new Dictionary<string, Visual>
+            {
+                { "0,1,1 0,0,1 1,0,1 1,1,1", Face1 },
+                { "0,1,1 0,1,0 0,0,0 0,0,1", Face2 },
+                { "0,0,1 0,0,0 1,0,0 1,0,1", Face3 },
+                { "1,1,1 1,1,0 0,1,0 0,1,1", Face4 },
+                { "1,0,1 1,0,0 1,1,0 1,1,1", Face5 },
+                { "0,0,0 0,1,0 1,1,0 1,0,0", Face6 },
+            };
+            visual.Content = CubeUtility.CreateCubeModel(faces);
 
             var transform = new Transform3DGroup();
             transform.Children.Add(new TranslateTransform3D(new Vector3D(-0.5, -0.5, -0.5)));
