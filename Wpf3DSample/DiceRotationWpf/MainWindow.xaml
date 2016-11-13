@@ -18,25 +18,31 @@
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
-    <Grid Background="#FF333333">
-        <Grid Visibility="Hidden">
-            <TextBlock x:Name="Face1" Style="{DynamicResource FaceStyle}" Text="1" Background="#FF222222"/>
-            <TextBlock x:Name="Face2" Style="{DynamicResource FaceStyle}" Text="2" Background="#FFDF2C2C"/>
-            <TextBlock x:Name="Face3" Style="{DynamicResource FaceStyle}" Text="3" Background="#FFEE9319"/>
-            <TextBlock x:Name="Face4" Style="{DynamicResource FaceStyle}" Text="4" Background="#FFE3E60A"/>
-            <TextBlock x:Name="Face5" Style="{DynamicResource FaceStyle}" Text="5" Background="#FF29D214"/>
-            <TextBlock x:Name="Face6" Style="{DynamicResource FaceStyle}" Text="6" Background="#FF4444BB"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid Background="#FF333333">
+            <Grid Visibility="Hidden">
+                <TextBlock x:Name="Face1" Style="{DynamicResource FaceStyle}" Text="1" Background="#FF222222"/>
+                <TextBlock x:Name="Face2" Style="{DynamicResource FaceStyle}" Text="2" Background="#FFDF2C2C"/>
+                <TextBlock x:Name="Face3" Style="{DynamicResource FaceStyle}" Text="3" Background="#FFEE9319"/>
+                <TextBlock x:Name="Face4" Style="{DynamicResource FaceStyle}" Text="4" Background="#FFE3E60A"/>
+                <TextBlock x:Name="Face5" Style="{DynamicResource FaceStyle}" Text="5" Background="#FF29D214"/>
+                <TextBlock x:Name="Face6" Style="{DynamicResource FaceStyle}" Text="6" Background="#FF4444BB"/>
+            </Grid>
+            <Viewport3D>
+                <Viewport3D.Camera>
+                    <PerspectiveCamera Position="0,0,10"/>
+                </Viewport3D.Camera>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <AmbientLight/>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <ModelVisual3D Content="{Binding CubeModel, ElementName=window}" Transform="{Binding CubeTransform}"/>
+            </Viewport3D>
         </Grid>
-        <Viewport3D>
-            <Viewport3D.Camera>
-                <PerspectiveCamera Position="0,0,10"/>
-            </Viewport3D.Camera>
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <AmbientLight/>
-                </ModelVisual3D.Content>
-            </ModelVisual3D>
-            <ModelVisual3D Content="{Binding CubeModel, ElementName=window}" Transform="{Binding CubeTransform}"/>
-        </Viewport3D>
     </Grid>
 </Window>
