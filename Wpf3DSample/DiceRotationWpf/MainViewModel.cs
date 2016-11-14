@@ -10,6 +10,9 @@ namespace DiceRotationWpf
     {
         const double AngleDelta = 5.0;
 
+        const double AngleRatio = 0.5;
+        const double AxisXYLength = 50.0;
+
         public Transform3D CubeTransform { get; }
 
         MatrixTransform3D matrixTransform = new MatrixTransform3D();
@@ -32,12 +35,30 @@ namespace DiceRotationWpf
             matrixTransform.Rotate(axis, AngleDelta);
         }
 
-        public void RotateDelta(DeltaInfo info)
+        public void RotateDelta_Simple(DeltaInfo info)
         {
             var delta = info.End - info.Start;
             if (delta.Length == 0) return;
 
             matrixTransform.Rotate(new Vector3D(delta.Y, delta.X, 0), delta.Length);
+        }
+
+        public void RotateDelta(DeltaInfo info)
+        {
+            var delta = info.End - info.Start;
+            var deltaLength = delta.Length;
+            if (deltaLength == 0) return;
+
+            var distance = GetDistance((Vector)info.Start, delta);
+            delta *= AxisXYLength / deltaLength;
+            matrixTransform.Rotate(new Vector3D(delta.Y, delta.X, distance), AngleRatio * deltaLength);
+        }
+
+        // 原点から delta までの符号付き距離を求めます。
+        static double GetDistance(Vector start, Vector delta)
+        {
+            var angle = Vector.AngleBetween(delta, start);
+            return start.Length * Math.Sin(angle * Math.PI / 180);
         }
     }
 

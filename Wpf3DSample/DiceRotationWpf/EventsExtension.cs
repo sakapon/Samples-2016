@@ -26,13 +26,15 @@ namespace DiceRotationWpf
             var mouseDownEnd = mouseUp.Merge(mouseLeave);
 
             MouseDragDelta = mouseDown
-                .Select(e => e.GetPosition(Target))
+                .Select(GetSlidedPosition)
                 .Do(p => MouseDragLastPoint = p)
                 .SelectMany(p0 => mouseMove
                     .TakeUntil(mouseDownEnd)
-                    .Select(e => new DeltaInfo { Start = MouseDragLastPoint, End = e.GetPosition(Target) })
+                    .Select(e => new DeltaInfo { Start = MouseDragLastPoint, End = GetSlidedPosition(e) })
                     .Do(_ => MouseDragLastPoint = _.End));
         }
+
+        Point GetSlidedPosition(MouseEventArgs e) => e.GetPosition(Target) - (Vector)Target.RenderSize / 2;
     }
 
     public class EventsExtensionForTrackball<TElement> where TElement : UIElement
