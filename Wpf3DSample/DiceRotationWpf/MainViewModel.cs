@@ -32,8 +32,9 @@ namespace DiceRotationWpf
             matrixTransform.Rotate(axis, AngleDelta);
         }
 
-        public void RotateDelta(Vector delta)
+        public void RotateDelta(DeltaInfo info)
         {
+            var delta = info.End - info.Start;
             if (delta.Length == 0) return;
 
             matrixTransform.Rotate(new Vector3D(delta.Y, delta.X, 0), delta.Length);

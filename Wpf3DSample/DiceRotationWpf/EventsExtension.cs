@@ -12,7 +12,7 @@ namespace DiceRotationWpf
         public TElement Target { get; }
 
         Point MouseDragLastPoint;
-        public IObservable<Vector> MouseDragDelta { get; }
+        public IObservable<DeltaInfo> MouseDragDelta { get; }
 
         public EventsExtension(TElement target)
         {
@@ -30,9 +30,14 @@ namespace DiceRotationWpf
                 .Do(p => MouseDragLastPoint = p)
                 .SelectMany(p0 => mouseMove
                     .TakeUntil(mouseDownEnd)
-                    .Select(e => new { p1 = MouseDragLastPoint, p2 = e.GetPosition(Target) })
-                    .Do(_ => MouseDragLastPoint = _.p2)
-                    .Select(_ => _.p2 - _.p1));
+                    .Select(e => new DeltaInfo { Start = MouseDragLastPoint, End = e.GetPosition(Target) })
+                    .Do(_ => MouseDragLastPoint = _.End));
         }
+    }
+
+    public struct DeltaInfo
+    {
+        public Point Start { get; set; }
+        public Point End { get; set; }
     }
 }
