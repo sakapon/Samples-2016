@@ -35,6 +35,32 @@ namespace DiceRotationWpf
         }
     }
 
+    public class EventsExtensionForTrackball<TElement> where TElement : UIElement
+    {
+        public TElement Target { get; }
+
+        Point MouseDragLastPoint;
+        public IObservable<DeltaInfo> MouseDragDelta { get; }
+
+        public EventsExtensionForTrackball(TElement target)
+        {
+            Target = target;
+
+            // Replaces events with IObservable objects.
+            var mouseEnter = Observable.FromEventPattern<MouseEventArgs>(Target, nameof(UIElement.MouseEnter)).Select(e => e.EventArgs);
+            var mouseMove = Observable.FromEventPattern<MouseEventArgs>(Target, nameof(UIElement.MouseMove)).Select(e => e.EventArgs);
+            var mouseLeave = Observable.FromEventPattern<MouseEventArgs>(Target, nameof(UIElement.MouseLeave)).Select(e => e.EventArgs);
+
+            MouseDragDelta = mouseEnter
+                .Select(e => e.GetPosition(Target))
+                .Do(p => MouseDragLastPoint = p)
+                .SelectMany(p0 => mouseMove
+                    .TakeUntil(mouseLeave)
+                    .Select(e => new DeltaInfo { Start = MouseDragLastPoint, End = e.GetPosition(Target) })
+                    .Do(_ => MouseDragLastPoint = _.End));
+        }
+    }
+
     public struct DeltaInfo
     {
         public Point Start { get; set; }
