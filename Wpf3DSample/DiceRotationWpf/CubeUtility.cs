@@ -57,7 +57,7 @@ namespace DiceRotationWpf
             return new MeshGeometry3D
             {
                 Positions = Point3DCollection.Parse(positions),
-                TriangleIndices = Int32Collection.Parse("0 1 2 0 2 3"),
+                TriangleIndices = Int32Collection.Parse("0,1,2 0,2,3"),
                 TextureCoordinates = PointCollection.Parse("0,0 0,1 1,1 1,0"),
             };
         }

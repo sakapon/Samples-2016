@@ -31,11 +31,11 @@ namespace DiceCodeWpf
 
         public static MeshGeometry3D CreateSquareGeometry(string positions)
         {
-            // <MeshGeometry3D Positions="0,1,0 0,0,0 1,0,0 1,1,0" TriangleIndices="0 1 2 0 2 3" TextureCoordinates="0,0 0,1 1,1 1,0"/>
+            // <MeshGeometry3D Positions="0,1,0 0,0,0 1,0,0 1,1,0" TriangleIndices="0,1,2 0,2,3" TextureCoordinates="0,0 0,1 1,1 1,0"/>
             return new MeshGeometry3D
             {
                 Positions = Point3DCollection.Parse(positions),
-                TriangleIndices = Int32Collection.Parse("0 1 2 0 2 3"),
+                TriangleIndices = Int32Collection.Parse("0,1,2 0,2,3"),
                 TextureCoordinates = PointCollection.Parse("0,0 0,1 1,1 1,0"),
             };
         }
