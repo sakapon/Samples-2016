@@ -39,6 +39,9 @@ namespace DiceRotationWpf
 
             ViewModel = (MainViewModel)DataContext;
             InitializeCube();
+
+            var events = new EventsExtension<Grid>(DicePanel);
+            events.MouseDragDelta.Subscribe(ViewModel.RotateDelta);
         }
 
         void InitializeCube()

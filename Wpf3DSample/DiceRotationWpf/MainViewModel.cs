@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media.Media3D;
 
 namespace DiceRotationWpf
@@ -29,6 +30,13 @@ namespace DiceRotationWpf
         public void RotateDelta(Vector3D axis)
         {
             matrixTransform.Rotate(axis, AngleDelta);
+        }
+
+        public void RotateDelta(Vector delta)
+        {
+            if (delta.Length == 0) return;
+
+            matrixTransform.Rotate(new Vector3D(delta.Y, delta.X, 0), delta.Length);
         }
     }
 
