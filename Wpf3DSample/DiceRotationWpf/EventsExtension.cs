@@ -37,14 +37,14 @@ namespace DiceRotationWpf
         Point GetSlidedPosition(MouseEventArgs e) => e.GetPosition(Target) - (Vector)Target.RenderSize / 2;
     }
 
-    public class EventsExtensionForTrackball<TElement> where TElement : UIElement
+    public class EventsExtension_ForTrackball<TElement> where TElement : UIElement
     {
         public TElement Target { get; }
 
         Point MouseDragLastPoint;
         public IObservable<DeltaInfo> MouseDragDelta { get; }
 
-        public EventsExtensionForTrackball(TElement target)
+        public EventsExtension_ForTrackball(TElement target)
         {
             Target = target;
 

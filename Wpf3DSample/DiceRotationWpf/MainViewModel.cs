@@ -35,14 +35,6 @@ namespace DiceRotationWpf
             matrixTransform.Rotate(axis, AngleDelta);
         }
 
-        public void RotateDelta_Simple(DeltaInfo info)
-        {
-            var delta = info.End - info.Start;
-            if (delta.Length == 0) return;
-
-            matrixTransform.Rotate(new Vector3D(delta.Y, delta.X, 0), delta.Length);
-        }
-
         public void RotateDelta(DeltaInfo info)
         {
             var delta = info.End - info.Start;
@@ -59,6 +51,14 @@ namespace DiceRotationWpf
         {
             var angle = Vector.AngleBetween(delta, start);
             return start.Length * Math.Sin(angle * Math.PI / 180);
+        }
+
+        public void RotateDelta_ForTrackball(DeltaInfo info)
+        {
+            var delta = info.End - info.Start;
+            if (delta.Length == 0) return;
+
+            matrixTransform.Rotate(new Vector3D(delta.Y, delta.X, 0), delta.Length);
         }
     }
 
