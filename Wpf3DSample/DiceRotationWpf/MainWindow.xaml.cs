@@ -42,6 +42,9 @@ namespace DiceRotationWpf
 
             var events = new EventsExtension<Grid>(DicePanel);
             events.MouseDragDelta.Subscribe(ViewModel.RotateDelta);
+            // For using Trackball.
+            //var events = new EventsExtension_ForTrackball<Grid>(DicePanel);
+            //events.MouseDragDelta.Subscribe(ViewModel.RotateDelta_ForTrackball);
         }
 
         void InitializeCube()
