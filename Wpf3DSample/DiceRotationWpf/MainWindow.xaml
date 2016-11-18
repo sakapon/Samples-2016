@@ -15,8 +15,8 @@
             <Setter Property="FontSize" Value="20"/>
         </Style>
         <Style x:Key="RepeatButtonStyle" TargetType="{x:Type RepeatButton}">
-            <Setter Property="Width" Value="48"/>
-            <Setter Property="Height" Value="48"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
             <Setter Property="FontSize" Value="32"/>
         </Style>
     </Window.Resources>
@@ -50,13 +50,13 @@
             </Viewport3D>
         </Grid>
         <Grid Background="#FFF8F8F8" Grid.Column="1" Width="300">
-            <Canvas Height="250" VerticalAlignment="Top" Width="250" Margin="0,20,0,0">
+            <Canvas Height="230" Width="230">
                 <RepeatButton Content="↑" CommandParameter="-x" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="90" Canvas.Top="20"  Click="Rotate_Click"/>
                 <RepeatButton Content="↓" CommandParameter="+x" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="90" Canvas.Top="160" Click="Rotate_Click"/>
                 <RepeatButton Content="←" CommandParameter="-y" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="20" Canvas.Top="90" Click="Rotate_Click"/>
                 <RepeatButton Content="→" CommandParameter="+y" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="160" Canvas.Top="90" Click="Rotate_Click"/>
-                <RepeatButton Content="↘" CommandParameter="-z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="160" Canvas.Top="20" Click="Rotate_Click"/>
-                <RepeatButton Content="↙" CommandParameter="+z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="20" Canvas.Top="20" Click="Rotate_Click"/>
+                <RepeatButton Content="↖" CommandParameter="-z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="20" Canvas.Top="160" Click="Rotate_Click"/>
+                <RepeatButton Content="↗" CommandParameter="+z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="160" Canvas.Top="160" Click="Rotate_Click"/>
             </Canvas>
         </Grid>
     </Grid>
