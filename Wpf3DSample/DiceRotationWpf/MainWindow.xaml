@@ -55,8 +55,8 @@
                 <RepeatButton Content="↓" CommandParameter="+x" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="90" Canvas.Top="160" Click="Rotate_Click"/>
                 <RepeatButton Content="←" CommandParameter="-y" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="20" Canvas.Top="90" Click="Rotate_Click"/>
                 <RepeatButton Content="→" CommandParameter="+y" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="160" Canvas.Top="90" Click="Rotate_Click"/>
-                <RepeatButton Content="↖" CommandParameter="-z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="20" Canvas.Top="160" Click="Rotate_Click"/>
-                <RepeatButton Content="↗" CommandParameter="+z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="160" Canvas.Top="160" Click="Rotate_Click"/>
+                <RepeatButton Content="↘" CommandParameter="-z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="160" Canvas.Top="20" Click="Rotate_Click"/>
+                <RepeatButton Content="↙" CommandParameter="+z" Style="{DynamicResource RepeatButtonStyle}" Canvas.Left="20" Canvas.Top="20" Click="Rotate_Click"/>
             </Canvas>
         </Grid>
     </Grid>
