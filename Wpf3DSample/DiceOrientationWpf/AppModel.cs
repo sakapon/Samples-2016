@@ -43,6 +43,12 @@ namespace DiceOrientationWpf
             RotationQuaternionString = RotationQuaternion.Select(q => $"{q.W:F2}; ({q.X:F2}, {q.Y:F2}, {q.Z:F2})").ToReadOnlyReactiveProperty();
 
             RotationMatrix = OrientationData.Select(d => d.RotationMatrix.ToMatrix3D()).ToReadOnlyReactiveProperty();
+
+            // Transpose of a matrix represents the inverse rotation.
+            RotationMatrix
+                .ObserveOn(SynchronizationContext.Current)
+                //.Subscribe(m => matrixTransform.Matrix = m);
+                .Subscribe(m => matrixTransform.Matrix = m.Transpose());
         }
 
         Transform3D InitializeCubeTransform()
