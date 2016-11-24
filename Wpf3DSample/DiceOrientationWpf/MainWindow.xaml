@@ -45,6 +45,15 @@
             </Viewport3D>
         </Grid>
         <StackPanel Width="300" Margin="10" Grid.Column="1">
+            <StackPanel DataContext="{Binding InclinationData.Value}" Margin="10">
+                <TextBlock Text="{Binding RollDegrees, StringFormat=Roll: \{0:F2\} °}"/>
+                <TextBlock Text="{Binding PitchDegrees, StringFormat=Pitch: \{0:F2\} °}"/>
+                <TextBlock Text="{Binding YawDegrees, StringFormat=Yaw: \{0:F2\} °}"/>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <TextBlock Text="Quaternion:"/>
+                <TextBlock Text="{Binding RotationQuaternionString.Value}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
