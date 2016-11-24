@@ -42,7 +42,10 @@ namespace DiceOrientationWpf
             RotationQuaternion = OrientationData.Select(d => d.Quaternion.ToQuaternion()).ToReadOnlyReactiveProperty();
             RotationQuaternionString = RotationQuaternion.Select(q => $"{q.W:F2}; ({q.X:F2}, {q.Y:F2}, {q.Z:F2})").ToReadOnlyReactiveProperty();
 
+            // Rotation is represented by a matrix, a quaternion or Euler angles (roll, pitch and yaw).
             RotationMatrix = OrientationData.Select(d => d.RotationMatrix.ToMatrix3D()).ToReadOnlyReactiveProperty();
+            //RotationMatrix = RotationQuaternion.Select(q => q.ToMatrix3D()).ToReadOnlyReactiveProperty();
+            //RotationMatrix = InclinationData.Select(i => i.ToMatrix3D()).ToReadOnlyReactiveProperty();
 
             // Transpose of a matrix represents the inverse rotation.
             RotationMatrix
@@ -74,6 +77,15 @@ namespace DiceOrientationWpf
         {
             var m = new Matrix3D();
             m.Rotate(q);
+            return m;
+        }
+
+        public static Matrix3D ToMatrix3D(this InclinometerReading i)
+        {
+            var m = new Matrix3D();
+            m.Rotate(new Quaternion(new Vector3D(0, 1, 0), i.RollDegrees));
+            m.Rotate(new Quaternion(new Vector3D(1, 0, 0), i.PitchDegrees));
+            m.Rotate(new Quaternion(new Vector3D(0, 0, 1), i.YawDegrees));
             return m;
         }
     }
