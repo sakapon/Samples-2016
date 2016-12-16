@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomWalkConsole", "RandomWalkConsole\RandomWalkConsole.csproj", "{B1DCAAB5-51F1-4FFF-8C32-97C1319C4B29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropositionsConsole", "PropositionsConsole\PropositionsConsole.csproj", "{A5C12021-48FA-4411-8A48-BC173E2626DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B1DCAAB5-51F1-4FFF-8C32-97C1319C4B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1DCAAB5-51F1-4FFF-8C32-97C1319C4B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1DCAAB5-51F1-4FFF-8C32-97C1319C4B29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
