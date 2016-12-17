@@ -18,3 +18,4 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [Bot Framework で Slack の bot を構成する](https://sakapon.wordpress.com/2016/11/05/bot-framework-slack/)
 - [WPF で 3D オブジェクトを表示する](https://sakapon.wordpress.com/2016/11/17/wpf-3d-model/)
 - [WPF で 3D オブジェクトを回転させる](https://sakapon.wordpress.com/2016/11/18/wpf-3d-rotation/)
+- [命題論理を実装する (C#)](https://sakapon.wordpress.com/2016/12/16/propositional-logic/)
