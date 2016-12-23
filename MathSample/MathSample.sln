@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomWalkConsole", "Random
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropositionsConsole", "PropositionsConsole\PropositionsConsole.csproj", "{A5C12021-48FA-4411-8A48-BC173E2626DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuessConsole", "NumberGuessConsole\NumberGuessConsole.csproj", "{1164FD29-34FC-411D-974E-FD7B1E0EE508}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5C12021-48FA-4411-8A48-BC173E2626DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1164FD29-34FC-411D-974E-FD7B1E0EE508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1164FD29-34FC-411D-974E-FD7B1E0EE508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1164FD29-34FC-411D-974E-FD7B1E0EE508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1164FD29-34FC-411D-974E-FD7B1E0EE508}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
