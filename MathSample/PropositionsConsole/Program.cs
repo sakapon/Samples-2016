@@ -68,8 +68,8 @@ namespace PropositionsConsole
             knowledge.Determine(kb);
 
             WriteLine("Q 1.3");
-            WriteLine($"{ka}: {ka.Value}");
-            WriteLine($"{kb}: {kb.Value}");
+            WriteVariable(ka);
+            WriteVariable(kb);
         }
 
         static void Knights_1_5()
@@ -82,8 +82,13 @@ namespace PropositionsConsole
             knowledge.Determine(kb);
 
             WriteLine("Q 1.5");
-            WriteLine($"{ka}: {ka.Value}");
-            WriteLine($"{kb}: {kb.Value}");
+            WriteVariable(ka);
+            WriteVariable(kb);
+        }
+
+        static void WriteVariable(VariableFormula v)
+        {
+            WriteLine($"{v}: {(v.Value.HasValue ? v.Value.ToString() : "Null")}");
         }
     }
 }
