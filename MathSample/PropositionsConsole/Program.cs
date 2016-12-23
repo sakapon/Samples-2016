@@ -11,6 +11,11 @@ namespace PropositionsConsole
     {
         static void Main(string[] args)
         {
+            CheckTautology();
+        }
+
+        static void CheckTautology()
+        {
             var p = Variable("P");
             var q = Variable("Q");
             var r = Variable("R");
