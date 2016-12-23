@@ -12,6 +12,9 @@ namespace PropositionsConsole
         static void Main(string[] args)
         {
             CheckTautology();
+
+            Knights_1_3();
+            Knights_1_5();
         }
 
         static void CheckTautology()
@@ -53,6 +56,34 @@ namespace PropositionsConsole
         static void TestContradiction(Formula f)
         {
             WriteLine($"{f} is{(f.IsContradiction() ? "" : " not")} a contradiction.");
+        }
+
+        static void Knights_1_3()
+        {
+            var ka = Variable("kA");
+            var kb = Variable("kB");
+
+            var knowledge = Equivalent(ka, !ka & !kb);
+            knowledge.Determine(ka);
+            knowledge.Determine(kb);
+
+            WriteLine("Q 1.3");
+            WriteLine($"{ka}: {ka.Value}");
+            WriteLine($"{kb}: {kb.Value}");
+        }
+
+        static void Knights_1_5()
+        {
+            var ka = Variable("kA");
+            var kb = Variable("kB");
+
+            var knowledge = Equivalent(ka, Equivalent(ka, kb));
+            knowledge.Determine(ka);
+            knowledge.Determine(kb);
+
+            WriteLine("Q 1.5");
+            WriteLine($"{ka}: {ka.Value}");
+            WriteLine($"{kb}: {kb.Value}");
         }
     }
 }
