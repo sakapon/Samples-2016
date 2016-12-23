@@ -25,7 +25,9 @@ namespace NumberGuessConsole
             if (turns > 1)
             {
                 var previous = Knowledge.GetVariable(new PlayerTurns(Id.Opponent, turns - 1));
-                // kb &= !previous; とすると処理が増えるため、最適化します。
+                // 本来は
+                // Knowledge &= !previous;
+                // ですが、処理の最適化のため、真偽値を代入します。
                 previous.Value = false;
             }
 
@@ -75,7 +77,7 @@ namespace NumberGuessConsole
 
             if (Candidates.Length <= 1) return;
 
-            // 特定のプレーヤーの思考の中で無限ループになる場合、「わからない」と結論付けます (知識を追加しない)。
+            // 特定のプレイヤーの思考の中で無限ループになる場合、「わからない」と結論付けます (知識を追加しない)。
             foreach (var v in Candidates.Where(c => c.Statement.Number < opponent.Number))
             {
                 var simulationResult = simulator.Start(new[] { self, v.Statement }, Id.Opponent);

@@ -33,6 +33,7 @@ namespace NumberGuessConsole
 
     public class GameSimulator
     {
+        // 処理の最適化のため、必要となる結果だけを返します。
         public VariableFormula<PlayerTurns> Start(PlayerNumber[] numbers, PlayerIdentity targetId)
         {
             var targetNumber = numbers.First(n => n.PlayerId == targetId).Number;
