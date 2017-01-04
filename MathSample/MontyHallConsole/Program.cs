@@ -9,10 +9,15 @@ namespace MontyHallConsole
     {
         static void Main(string[] args)
         {
-            var count = 1000;
-            var wins = Enumerable.Range(0, count)
-                .Count(i => MontyHall.Execute());
-            Console.WriteLine($"{(double)wins / count:P2}");
+            var loops = 10;
+            var trials = 10000;
+
+            for (var i = 0; i < loops; i++)
+            {
+                var wins = Enumerable.Repeat(false, trials)
+                    .Count(_ => MontyHall.Execute());
+                Console.WriteLine($"{(double)wins / trials:P2}");
+            }
         }
     }
 
