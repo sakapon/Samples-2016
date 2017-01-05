@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Blaze, Version=1.1.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Blaze.1.1.8\lib\net45\Blaze.dll</HintPath>
+    <Reference Include="Blaze, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Blaze.1.1.10\lib\net45\Blaze.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
