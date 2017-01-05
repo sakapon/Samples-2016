@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Blaze.Propositions;
+using static Blaze.Propositions.Formula;
 
 namespace NumberGuessConsole
 {
@@ -20,11 +21,11 @@ namespace NumberGuessConsole
                 var resultA = playerA.Guess(i);
                 var resultB = playerB.Guess(i);
 
-                yield return FormulaHelper.CreateProposition(new PlayerTurns(playerA.Id, i), resultA.HasValue);
-                yield return FormulaHelper.CreateProposition(new PlayerTurns(playerB.Id, i), resultB.HasValue);
+                yield return Variable(new PlayerTurns(playerA.Id, i), resultA.HasValue);
+                yield return Variable(new PlayerTurns(playerB.Id, i), resultB.HasValue);
 
-                if (resultA.HasValue) yield return FormulaHelper.CreateProposition(resultA.Value, true);
-                if (resultB.HasValue) yield return FormulaHelper.CreateProposition(resultB.Value, true);
+                if (resultA.HasValue) yield return Variable(resultA.Value, true);
+                if (resultB.HasValue) yield return Variable(resultB.Value, true);
 
                 if (resultA.HasValue || resultB.HasValue) yield break;
             }
@@ -50,11 +51,11 @@ namespace NumberGuessConsole
                 var targetResult = targetPlayer.Guess(i);
                 var opponentResult = opponentPlayer.Guess(i);
 
-                if (targetResult.HasValue) return FormulaHelper.CreateProposition(new PlayerTurns(targetId, i), true);
-                if (opponentResult.HasValue) return FormulaHelper.CreateProposition(new PlayerTurns(targetId.Opponent, i), true);
+                if (targetResult.HasValue) return Variable(new PlayerTurns(targetId, i), true);
+                if (opponentResult.HasValue) return Variable(new PlayerTurns(targetId.Opponent, i), true);
 
                 if (targetNumber > opponentNumber && i == targetNumber - 2)
-                    return FormulaHelper.CreateProposition(new PlayerTurns(targetId, i), false);
+                    return Variable(new PlayerTurns(targetId, i), false);
             }
         }
 
@@ -65,8 +66,8 @@ namespace NumberGuessConsole
             var opponentNumber = numbers.First(n => n.PlayerId == targetId.Opponent).Number;
 
             return targetNumber < opponentNumber ?
-                FormulaHelper.CreateProposition(new PlayerTurns(targetId, targetNumber), true) :
-                FormulaHelper.CreateProposition(new PlayerTurns(targetId, targetNumber - 2), false);
+                Variable(new PlayerTurns(targetId, targetNumber), true) :
+                Variable(new PlayerTurns(targetId, targetNumber - 2), false);
         }
     }
 }

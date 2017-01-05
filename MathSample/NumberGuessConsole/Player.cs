@@ -24,7 +24,7 @@ namespace NumberGuessConsole
         {
             if (turns > 1)
             {
-                var previous = Knowledge.GetVariable(new PlayerTurns(Id.Opponent, turns - 1));
+                var previous = Knowledge.GetOrCreateVariable(new PlayerTurns(Id.Opponent, turns - 1));
                 // 本来は
                 // Knowledge &= !previous;
                 // ですが、処理の最適化のため、真偽値を代入します。
@@ -58,7 +58,7 @@ namespace NumberGuessConsole
             foreach (var v in Candidates)
             {
                 var simulationResult = simulator.Start(new[] { self, v.Statement }, Id.Opponent);
-                var r = Knowledge.GetVariable(simulationResult);
+                var r = Knowledge.GetOrCreateVariable(simulationResult);
                 Knowledge &= Imply(v, simulationResult.Value == true ? r : !r);
             }
         }
@@ -81,7 +81,7 @@ namespace NumberGuessConsole
             foreach (var v in Candidates.Where(c => c.Statement.Number < opponent.Number))
             {
                 var simulationResult = simulator.Start(new[] { self, v.Statement }, Id.Opponent);
-                var r = Knowledge.GetVariable(simulationResult);
+                var r = Knowledge.GetOrCreateVariable(simulationResult);
                 Knowledge &= Imply(v, simulationResult.Value == true ? r : !r);
             }
         }
