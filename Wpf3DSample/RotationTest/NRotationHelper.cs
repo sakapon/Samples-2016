@@ -21,14 +21,14 @@ namespace RotationTest
         {
             var y_yaw = (float)Math.Atan2(rotatedUnitZ.X, rotatedUnitZ.Z);
 
-            var q_yaw_inv = Quaternion.CreateFromAxisAngle(Vector3.UnitY, -y_yaw);
-            rotatedUnitZ = Vector3.Transform(rotatedUnitZ, q_yaw_inv);
-            rotatedUnitY = Vector3.Transform(rotatedUnitY, q_yaw_inv);
+            var m_yaw_inv = Matrix4x4.CreateFromAxisAngle(Vector3.UnitY, -y_yaw);
+            rotatedUnitZ = Vector3.Transform(rotatedUnitZ, m_yaw_inv);
+            rotatedUnitY = Vector3.Transform(rotatedUnitY, m_yaw_inv);
 
             var x_pitch = (float)Math.Atan2(-rotatedUnitZ.Y, rotatedUnitZ.Z);
 
-            var q_pitch_inv = Quaternion.CreateFromAxisAngle(Vector3.UnitX, -x_pitch);
-            rotatedUnitY = Vector3.Transform(rotatedUnitY, q_pitch_inv);
+            var m_pitch_inv = Matrix4x4.CreateFromAxisAngle(Vector3.UnitX, -x_pitch);
+            rotatedUnitY = Vector3.Transform(rotatedUnitY, m_pitch_inv);
 
             var z_roll = (float)Math.Atan2(-rotatedUnitY.X, rotatedUnitY.Y);
 

@@ -22,6 +22,8 @@ namespace RotationTest
 
         public static Quaternion CreateQuaternionInRadians(Vector3D axis, double angleInRadians) => new Quaternion(axis, ToDegrees(angleInRadians));
 
+        public static Vector3D Multiply(this Vector3D v, Quaternion q) => v * q.ToMatrix3D();
+
         public static Matrix3D ToMatrix3D(this EulerAngles e) => e.ToQuaternion().ToMatrix3D();
 
         public static Matrix3D ToMatrix3D(this Quaternion q)
