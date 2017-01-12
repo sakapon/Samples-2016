@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace RotationTest
 {
     [TestClass]
-    public class UnitTest1
+    public class Rotation3DHelperTest
     {
         [TestMethod]
         public void TestMethod1()
