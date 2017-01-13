@@ -22,6 +22,7 @@ namespace RotationTest
         public static double ToRadians(double degrees) => degrees * Math.PI / 180;
 
         public static Quaternion CreateQuaternionInRadians(Vector3D axis, double angleInRadians) => new Quaternion(axis, ToDegrees(angleInRadians));
+        public static Quaternion Negate(this Quaternion q) => new Quaternion(-q.X, -q.Y, -q.Z, -q.W);
 
         public static Vector3D Multiply(this Vector3D v, Quaternion q) => v * q.ToMatrix3D();
 

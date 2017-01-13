@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media.Media3D;
+using Blaze.Randomization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RotationTest
@@ -8,6 +9,10 @@ namespace RotationTest
     public class Rotation3DHelperTest
     {
         const double π = Math.PI;
+
+        static Quaternion NextQuaternion() => Rotation3DHelper.CreateQuaternionInRadians(
+            new Vector3D(RandomHelper.NextDouble(-1, 1), RandomHelper.NextDouble(-1, 1), RandomHelper.NextDouble(-1, 1)),
+            RandomHelper.NextDouble(-7, 7));
 
         [TestMethod]
         public void ToEulerAngles_01()
@@ -37,6 +42,29 @@ namespace RotationTest
         {
             var actual = Rotation3DHelper.ToEulerAngles(rotatedUnitZ, rotatedUnitY);
             AssertEulerAngles(expected, actual);
+        }
+
+        [TestMethod]
+        public void QuaternionToQuaternion_Many()
+        {
+            for (var i = 0; i < 1000; i++)
+            {
+                var expected = NextQuaternion();
+                var actual = expected.ToEulerAngles().ToQuaternion();
+
+                AssertQuaternion(expected, actual);
+            }
+        }
+
+        static void AssertQuaternion(Quaternion expected, Quaternion actual)
+        {
+            if (expected.W * actual.W < 0)
+                actual = actual.Negate();
+
+            Assert.IsTrue(Math.Abs(expected.W - actual.W) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.X - actual.X) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.Y - actual.Y) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.Z - actual.Z) < 0.001);
         }
 
         static void AssertEulerAngles(EulerAngles expected, EulerAngles actual)

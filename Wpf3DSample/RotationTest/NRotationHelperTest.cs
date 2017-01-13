@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Blaze.Randomization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RotationTest
@@ -8,6 +9,10 @@ namespace RotationTest
     public class NRotationHelperTest
     {
         const float π = (float)Math.PI;
+
+        static Quaternion NextQuaternion() => Quaternion.Normalize(Quaternion.CreateFromAxisAngle(
+            new Vector3((float)RandomHelper.NextDouble(-1, 2), (float)RandomHelper.NextDouble(-1, 2), (float)RandomHelper.NextDouble(-1, 2)),
+            (float)RandomHelper.NextDouble(-7, 14)));
 
         [TestMethod]
         public void ToEulerAngles_01()
@@ -37,6 +42,30 @@ namespace RotationTest
         {
             var actual = NRotationHelper.ToEulerAngles(rotatedUnitZ, rotatedUnitY);
             AssertNEulerAngles(expected, actual);
+        }
+
+        [TestMethod]
+        public void QuaternionToQuaternion_Many()
+        {
+            for (var i = 0; i < 1000; i++)
+            {
+                var expected = NextQuaternion();
+                var e = expected.ToEulerAngles();
+                var actual = Quaternion.CreateFromYawPitchRoll(e.Yaw, e.Pitch, e.Roll);
+
+                AssertQuaternion(expected, actual);
+            }
+        }
+
+        static void AssertQuaternion(Quaternion expected, Quaternion actual)
+        {
+            if (expected.W * actual.W < 0)
+                actual = -actual;
+
+            Assert.IsTrue(Math.Abs(expected.W - actual.W) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.X - actual.X) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.Y - actual.Y) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.Z - actual.Z) < 0.001);
         }
 
         static void AssertNEulerAngles(NEulerAngles expected, NEulerAngles actual)
