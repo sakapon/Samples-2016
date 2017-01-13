@@ -58,7 +58,8 @@ namespace RotationTest
             var m_pitch_inv = CreateQuaternionInRadians(UnitX, -x_pitch).ToMatrix3D();
             rotatedUnitY = rotatedUnitY * m_pitch_inv;
 
-            var z_roll = Math.Atan2(-rotatedUnitY.X, rotatedUnitY.Y);
+            // 本来は -rotatedUnitY.X でよいが、0 のときに π とならないため。
+            var z_roll = Math.Atan2(rotatedUnitY.X == 0 ? 0 : -rotatedUnitY.X, rotatedUnitY.Y);
 
             return new EulerAngles { Yaw = y_yaw, Pitch = x_pitch, Roll = z_roll };
         }

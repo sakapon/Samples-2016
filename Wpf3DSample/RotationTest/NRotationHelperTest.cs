@@ -36,10 +36,10 @@ namespace RotationTest
         static void ToEulerAngles_One(NEulerAngles expected, Vector3 rotatedUnitZ, Vector3 rotatedUnitY)
         {
             var actual = NRotationHelper.ToEulerAngles(rotatedUnitZ, rotatedUnitY);
-            AssertEulerAngles(expected, actual);
+            AssertNEulerAngles(expected, actual);
         }
 
-        static void AssertEulerAngles(NEulerAngles expected, NEulerAngles actual)
+        static void AssertNEulerAngles(NEulerAngles expected, NEulerAngles actual)
         {
             Assert.IsTrue(Math.Abs(expected.Yaw - actual.Yaw) < 0.001);
             Assert.IsTrue(Math.Abs(expected.Pitch - actual.Pitch) < 0.001);
