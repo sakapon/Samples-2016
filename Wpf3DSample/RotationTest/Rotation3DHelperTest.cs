@@ -10,6 +10,13 @@ namespace RotationTest
     {
         const double π = Math.PI;
 
+        static Vector3D NextVector3D()
+        {
+            var v = new Vector3D(RandomHelper.NextDouble(-1, 1), RandomHelper.NextDouble(-1, 1), RandomHelper.NextDouble(-1, 1));
+            v.Normalize();
+            return v;
+        }
+
         static Quaternion NextQuaternion() => Rotation3DHelper.CreateQuaternionInRadians(
             new Vector3D(RandomHelper.NextDouble(-1, 1), RandomHelper.NextDouble(-1, 1), RandomHelper.NextDouble(-1, 1)),
             RandomHelper.NextDouble(-7, 7));
@@ -45,6 +52,29 @@ namespace RotationTest
         }
 
         [TestMethod]
+        public void PointsToPoints_Many()
+        {
+            for (var i = 0; i < 1000; i++)
+            {
+                var rotatedUnitZ = NextVector3D();
+                var rotatedUnitY = NextOrthogonalVector3D(rotatedUnitZ);
+
+                var m = Rotation3DHelper.ToEulerAngles(rotatedUnitZ, rotatedUnitY).ToMatrix3D();
+                AssertVector3D(rotatedUnitZ, Rotation3DHelper.UnitZ * m);
+                AssertVector3D(rotatedUnitY, Rotation3DHelper.UnitY * m);
+            }
+        }
+
+        static Vector3D NextOrthogonalVector3D(Vector3D v)
+        {
+            var a0 = v.X == 0 ? Rotation3DHelper.UnitX : new Vector3D(v.Y, -v.X, 0);
+            a0.Normalize();
+            var angle = RandomHelper.NextDouble(-π, π);
+            var q = Rotation3DHelper.CreateQuaternionInRadians(v, angle);
+            return a0.Multiply(q);
+        }
+
+        [TestMethod]
         public void QuaternionToQuaternion_Many()
         {
             for (var i = 0; i < 1000; i++)
@@ -54,6 +84,13 @@ namespace RotationTest
 
                 AssertQuaternion(expected, actual);
             }
+        }
+
+        static void AssertVector3D(Vector3D expected, Vector3D actual)
+        {
+            Assert.IsTrue(Math.Abs(expected.X - actual.X) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.Y - actual.Y) < 0.001);
+            Assert.IsTrue(Math.Abs(expected.Z - actual.Z) < 0.001);
         }
 
         static void AssertQuaternion(Quaternion expected, Quaternion actual)
