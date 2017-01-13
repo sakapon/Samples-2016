@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace RotationTest
@@ -36,6 +37,7 @@ namespace RotationTest
         }
     }
 
+    [DebuggerDisplay(@"\{Yaw={Yaw}, Pitch={Pitch}, Roll={Roll}\}")]
     public struct NEulerAngles
     {
         public float Yaw;

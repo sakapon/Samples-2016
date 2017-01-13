@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Media.Media3D;
 
 namespace RotationTest
@@ -63,6 +64,7 @@ namespace RotationTest
         }
     }
 
+    [DebuggerDisplay(@"\{Yaw={Yaw}, Pitch={Pitch}, Roll={Roll}\}")]
     public struct EulerAngles
     {
         public double Yaw { get; set; }
