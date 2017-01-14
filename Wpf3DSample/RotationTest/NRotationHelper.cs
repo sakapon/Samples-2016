@@ -31,7 +31,7 @@ namespace RotationTest
             var m_pitch_inv = Matrix4x4.CreateFromAxisAngle(Vector3.UnitX, -x_pitch);
             rotatedUnitY = Vector3.Transform(rotatedUnitY, m_pitch_inv);
 
-            // 本来は -rotatedUnitY.X でよいが、0 のときに π とならないため。
+            // 本来は -rotatedUnitY.X だけでよいはずです。しかし、X=0 のときに π でなく -π となってしまうため、場合分けします。
             var z_roll = (float)Math.Atan2(rotatedUnitY.X == 0 ? 0 : -rotatedUnitY.X, rotatedUnitY.Y);
 
             return new NEulerAngles { Yaw = y_yaw, Pitch = x_pitch, Roll = z_roll };
