@@ -21,6 +21,7 @@ namespace RotationTest
         public void ToEulerAngles_01()
         {
             ToEulerAngles_One(new NEulerAngles { Yaw = 0, Pitch = 0, Roll = 0 }, new Vector3(0, 0, 1), new Vector3(0, 1, 0));
+
             ToEulerAngles_One(new NEulerAngles { Yaw = π / 2, Pitch = 0, Roll = 0 }, new Vector3(1, 0, 0), new Vector3(0, 1, 0));
             ToEulerAngles_One(new NEulerAngles { Yaw = -π / 2, Pitch = 0, Roll = 0 }, new Vector3(-1, 0, 0), new Vector3(0, 1, 0));
             ToEulerAngles_One(new NEulerAngles { Yaw = -3 * π / 4, Pitch = 0, Roll = 0 }, new Vector3(-0.7f, 0, -0.7f), new Vector3(0, 1, 0));
@@ -37,8 +38,10 @@ namespace RotationTest
             ToEulerAngles_One(new NEulerAngles { Yaw = π / 2, Pitch = π / 4, Roll = 0 }, new Vector3(1, -1, 0), new Vector3(1, 1, 0));
             ToEulerAngles_One(new NEulerAngles { Yaw = π / 2, Pitch = 0, Roll = π / 4 }, new Vector3(1, 0, 0), new Vector3(0, 0.7f, 0.7f));
 
-            ToEulerAngles_One(new NEulerAngles { Yaw = π, Pitch = 0, Roll = π }, new Vector3(0, 0, -1), new Vector3(0, -1, 0));
             ToEulerAngles_One(new NEulerAngles { Yaw = 0, Pitch = -π / 2, Roll = π / 2 }, new Vector3(0, 1, 0), new Vector3(-1, 0, 0));
+            ToEulerAngles_One(new NEulerAngles { Yaw = 0, Pitch = π / 2, Roll = π }, new Vector3(0, -1, 0), new Vector3(0, 0, -1));
+            ToEulerAngles_One(new NEulerAngles { Yaw = -π / 2, Pitch = 0, Roll = -π / 2 }, new Vector3(-1, 0, 0), new Vector3(0, 0, 1));
+            ToEulerAngles_One(new NEulerAngles { Yaw = π, Pitch = 0, Roll = π }, new Vector3(0, 0, -1), new Vector3(0, -1, 0));
         }
 
         static void ToEulerAngles_One(NEulerAngles expected, Vector3 rotatedUnitZ, Vector3 rotatedUnitY)
