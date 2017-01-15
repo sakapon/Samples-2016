@@ -14,6 +14,10 @@ namespace RotationTest
     /// </remarks>
     public static class NRotationHelper
     {
+        public static Matrix4x4 ToMatrix4x4(this NEulerAngles e) => Matrix4x4.CreateFromYawPitchRoll(e.Yaw, e.Pitch, e.Roll);
+
+        public static Quaternion ToQuaternion(this NEulerAngles e) => Quaternion.CreateFromYawPitchRoll(e.Yaw, e.Pitch, e.Roll);
+
         public static NEulerAngles ToEulerAngles(this Quaternion q) => Matrix4x4.CreateFromQuaternion(q).ToEulerAngles();
 
         public static NEulerAngles ToEulerAngles(this Matrix4x4 m) => ToEulerAngles(Vector3.Transform(Vector3.UnitZ, m), Vector3.Transform(Vector3.UnitY, m));
