@@ -58,8 +58,7 @@ namespace RotationTest
                 var rotatedUnitZ = NextVector3();
                 var rotatedUnitY = NextOrthogonalVector3(rotatedUnitZ);
 
-                var e = NRotationHelper.ToEulerAngles(rotatedUnitZ, rotatedUnitY);
-                var m = Matrix4x4.CreateFromYawPitchRoll(e.Yaw, e.Pitch, e.Roll);
+                var m = NRotationHelper.ToEulerAngles(rotatedUnitZ, rotatedUnitY).ToMatrix4x4();
                 AssertVector3(rotatedUnitZ, Vector3.Transform(Vector3.UnitZ, m));
                 AssertVector3(rotatedUnitY, Vector3.Transform(Vector3.UnitY, m));
             }
@@ -80,8 +79,7 @@ namespace RotationTest
             for (var i = 0; i < 1000; i++)
             {
                 var expected = NextQuaternion();
-                var e = expected.ToEulerAngles();
-                var actual = Quaternion.CreateFromYawPitchRoll(e.Yaw, e.Pitch, e.Roll);
+                var actual = expected.ToEulerAngles().ToQuaternion();
 
                 AssertQuaternion(expected, actual);
             }
