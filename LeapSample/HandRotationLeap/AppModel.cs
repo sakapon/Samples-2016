@@ -69,6 +69,7 @@ namespace HandRotationLeap
     {
         public static Vector3D ToVector3D(this Leap.Vector v) => new Vector3D(v.x, v.y, v.z);
 
+        // Wrong values.
         public static EulerAngles GetEulerAngles_org(this Leap.Hand h) => new EulerAngles
         {
             Yaw = h.Direction.Yaw,
@@ -76,6 +77,7 @@ namespace HandRotationLeap
             Roll = h.PalmNormal.Roll,
         };
 
+        // Improved values.
         public static EulerAngles GetEulerAngles(this Leap.Hand h) =>
             Rotation3DHelper.ToEulerAngles(-h.Direction.ToVector3D(), -h.PalmNormal.ToVector3D());
     }
