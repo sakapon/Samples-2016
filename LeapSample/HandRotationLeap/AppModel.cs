@@ -22,7 +22,6 @@ namespace HandRotationLeap
         public ReadOnlyReactiveProperty<EulerAngles> EulerAngles_org { get; }
         public ReadOnlyReactiveProperty<EulerAngles> EulerAngles { get; }
 
-        public ReadOnlyReactiveProperty<Matrix3D> Rotation_org { get; }
         public ReadOnlyReactiveProperty<Matrix3D> Rotation { get; }
 
         public AppModel()
@@ -44,9 +43,7 @@ namespace HandRotationLeap
                 .Select(h => h != null ? h.GetEulerAngles() : new EulerAngles())
                 .ToReadOnlyReactiveProperty();
 
-            Rotation_org = EulerAngles_org
-                .Select(Rotation3DHelper.ToMatrix3D)
-                .ToReadOnlyReactiveProperty();
+            //Rotation = EulerAngles_org
             Rotation = EulerAngles
                 .Select(Rotation3DHelper.ToMatrix3D)
                 .ToReadOnlyReactiveProperty();
