@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HandRotationLeap"
         mc:Ignorable="d"
-        Title="Hand Rotation" Height="600" Width="900" FontSize="24">
+        Title="Hand Rotation" Height="600" Width="900" FontSize="22">
     <Window.Resources>
         <Style x:Key="FaceStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="White"/>
