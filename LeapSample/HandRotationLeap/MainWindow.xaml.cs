@@ -14,7 +14,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DiceOrientationWpf
+namespace HandRotationLeap
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
