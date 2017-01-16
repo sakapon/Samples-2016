@@ -44,7 +44,32 @@
                 <ModelVisual3D Content="{Binding CubeModel, ElementName=window}" Transform="{Binding CubeTransform}"/>
             </Viewport3D>
         </Grid>
-        <StackPanel Background="#FFF8F8F8" Width="300" Margin="10" Grid.Column="1">
+        <StackPanel Background="#FFF8F8F8" Width="300" Grid.Column="1">
+            <StackPanel DataContext="{Binding FrontHand.Value}" Margin="20,10">
+                <TextBlock Text="Tip"/>
+                <TextBlock Text="{Binding Direction.x, StringFormat=x: \{0:F2\}}"/>
+                <TextBlock Text="{Binding Direction.y, StringFormat=y: \{0:F2\}}"/>
+                <TextBlock Text="{Binding Direction.z, StringFormat=z: \{0:F2\}}"/>
+                <TextBlock Text="Palm"/>
+                <TextBlock Text="{Binding PalmNormal.x, StringFormat=x: \{0:F2\}}"/>
+                <TextBlock Text="{Binding PalmNormal.y, StringFormat=y: \{0:F2\}}"/>
+                <TextBlock Text="{Binding PalmNormal.z, StringFormat=z: \{0:F2\}}"/>
+            </StackPanel>
+            <StackPanel Margin="20,0">
+                <TextBlock Text="{Binding InnerProduct.Value, StringFormat=Tip · Palm: \{0:F2\}}"/>
+            </StackPanel>
+            <StackPanel Margin="20,5">
+                <TextBlock Text="Original"/>
+                <TextBlock Text="{Binding EulerAngles_org.Value.Yaw, StringFormat=Yaw: \{0:F2\}}"/>
+                <TextBlock Text="{Binding EulerAngles_org.Value.Pitch, StringFormat=Pitch: \{0:F2\}}"/>
+                <TextBlock Text="{Binding EulerAngles_org.Value.Roll, StringFormat=Roll: \{0:F2\}}"/>
+            </StackPanel>
+            <StackPanel Margin="20,5">
+                <TextBlock Text="Improved"/>
+                <TextBlock Text="{Binding EulerAngles.Value.Yaw, StringFormat=Yaw: \{0:F2\}}"/>
+                <TextBlock Text="{Binding EulerAngles.Value.Pitch, StringFormat=Pitch: \{0:F2\}}"/>
+                <TextBlock Text="{Binding EulerAngles.Value.Roll, StringFormat=Roll: \{0:F2\}}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
