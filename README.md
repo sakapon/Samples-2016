@@ -20,6 +20,8 @@ Sample programs, mainly used for [the blog (Do Design Space)](https://sakapon.wo
 - [WPF で 3D オブジェクトを回転させる](https://sakapon.wordpress.com/2016/11/18/wpf-3d-rotation/)
 - [命題論理を実装する (C#)](https://sakapon.wordpress.com/2016/12/16/propositional-logic/)
 - [命題論理の複雑な問題を解く (C#)](https://sakapon.wordpress.com/2016/12/23/solve-propositions/)
+- [3D における回転の表現と相互変換](https://sakapon.wordpress.com/2017/01/15/3d-rotation-conversion/)
+- [Leap Motion で手の回転状態を取得する](https://sakapon.wordpress.com/2017/01/17/leap-hand-rotation/)
 
 ### Thanks
 #### Images
